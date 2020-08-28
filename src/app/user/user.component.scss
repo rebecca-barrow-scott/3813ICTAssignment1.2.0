@@ -1,0 +1,27 @@
+.profile-img{
+    width:100px;
+    height:100px;
+    transform: rotate(270deg);
+}
+
+#profile-detail{
+    margin-top: 25px;
+}
+#profile-desc{
+    text-align: justify;
+    padding: 15px 0;
+    margin: auto;
+}
+
+ul{
+    list-style-type: none;
+    width: 100%;
+}
+li{
+    padding: 15px 0px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+}
+.name{
+    font-size: 1.2em;
+}

@@ -1,0 +1,15 @@
+<h3>All Users .</h3>
+<ul>
+    <li class='list-title'><strong>Group Admin</strong></li>
+    <section *ngFor="let user of group_admin">
+        <li>{{user.name}}</li>
+    </section>
+    <li class='list-title'><strong>Group Assistant Admin</strong></li>
+    <section *ngFor="let user of assist_admin">
+        <li>{{user.name}}</li>
+     </section>
+    <li class='list-title'><strong>Users</strong></li>
+    <section *ngFor="let user of users">
+        <li>{{user.name}}</li>
+    </section>
+</ul>

@@ -12,6 +12,12 @@ h3.appName{
     font-family: 'Share Tech Mono', monospace;
     color: whitesmoke;
 }
+
+.content{
+    padding: 10px;
+    font-family: 'Inconsolata', monospace;
+}
+
 .navbar{
     background-color: rgb(37, 37, 37); 
     padding:5px; 
@@ -65,3 +71,41 @@ h3.appName{
 #contentPanel{
     color:whitesmoke;
 }
+
+.login-button{
+    font-size: 3vh;
+    background-color: rgb(50, 136, 216);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 3px 10px 5px 10px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+}
+.login-button:focus{
+    outline: none;
+    border: 2px solid rgba(164, 182, 216, 0.7);
+    color: white;
+    background-color: rgb(59, 156, 248);
+}
+
+.submit-button{
+    font-size: 4vh;
+    background-color: rgb(18, 63, 105);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 5px 10px 7px 10px;
+    width: 100%;
+    color:white;
+}
+.submit-button:focus{
+    outline: none;
+    border: 2px solid rgba(164, 182, 216, 0.7);
+    color: white;
+    background-color: rgb(33, 100, 163);
+}
+

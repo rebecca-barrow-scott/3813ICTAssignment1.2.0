@@ -9,7 +9,7 @@
   <div class='container-fluid' id='nav'>
     <h3 class='appName'>GetChatty <img src="../assets/images/dots2.png" class='dots-img'></h3>
     
-    <a routerLink='/user'>Login as Super</a>
+    <button routerLink='/login' class='login-button'>Login</button>
   </div>
 </nav>
 <div class='container-fluid' id='container-body'>
@@ -26,7 +26,9 @@
     <img src="../assets/images/kook2.png" class='kook-img'>
   </div>
   <div class='col-9 float-right' id="contentPanel">
+    <div class='content'>
     <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
 </body>

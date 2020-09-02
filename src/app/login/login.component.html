@@ -1,8 +1,8 @@
-<h1>Login</h1>
-<a class="nav-link" routerLink='/account'>Account</a>
+
+<h1 class="title">Login</h1>
 <div *ngIf='verify; then ifBlock else elseBlock'></div>
 <ng-template #ifBlock>
-  <p class='ifBlock'>{{feedback}}</p>
+  <p class='ifBlock'></p>
 </ng-template>
 <ng-template #elseBlock>
   <p class='elseBlock'>{{feedback}}</p>
@@ -10,12 +10,12 @@
 
 <form>
     <div class="form-group">
-      <label for="exampleInputEmail1">Email address</label>
-      <input type="text" name='email' class="form-control" id="exampleInputEmail1"  placeholder="Enter email" [(ngModel)]="email">
+      <label for="email">Email address</label>
+      <input type="text" name='email' class="form-control" id="email"  placeholder="Enter email" [(ngModel)]="email">
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
-      <input type="text" name='password' class="form-control" id="exampleInputPassword1" placeholder="Password" [(ngModel)]="password">
+      <label for="password">Password</label>
+      <input type="password" name='password' class="form-control" id="password" placeholder="Password" [(ngModel)]="password">
     </div>
-    <button type="submit" class="btn btn-primary" value="Login" (click)="loginFunc()">Submit</button>
+    <button type="submit" class="submit-button" value="Login" (click)="loginFunc()">Submit</button>
   </form>

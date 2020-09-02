@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-all-user',
@@ -6,19 +7,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all-user.component.scss']
 })
 export class AllUserComponent implements OnInit {
-  all_users = [
-    {name: "User 1", email: "user1@gmail.com", role:"Group Admin"},
-    {name: "User 2", email: "user1@gmail.com", role:"Group Admin"},
-    {name: "User 3", email: "user1@gmail.com", role:"Group Assist Admin"},
-    {name: "User 4", email: "user1@gmail.com", role:"User"},
-    {name: "User 5", email: "user1@gmail.com", role:"User"},
-  ];
-  group_admin = this.filter_users('Group Admin');
-  assist_admin = this.filter_users('Group Assist Admin');
-  users = this.filter_users('User');
-  constructor() { }
+  all_users: any;
+  group_admin: any;
+  assist_admin: any;
+  users: any;
+  
+  constructor(private userService:UserService) { }
 
   ngOnInit(): void {
+    // this.all_users = JSON.parse(this.userService.getUsers());
+    // this.group_admin = this.filter_users('Group Admin');
+    // this.assist_admin = this.filter_users('Group Assist Admin');
+    // this.users = this.filter_users('User');
   }
   filter_users(filter){
     var user_array = []

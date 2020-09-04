@@ -8,8 +8,9 @@
 <nav class='navbar'>
   <div class='container-fluid' id='nav'>
     <h3 class='appName'>GetChatty <img src="../assets/images/dots2.png" class='dots-img'></h3>
-    
-    <button routerLink='/login' class='login-button'>Login</button>
+    <div *ngIF="user.email != nil">
+      <button (click)='logout()' class='login-button' routerLink='/'>Logout</button>
+    </div>
   </div>
 </nav>
 <div class='container-fluid' id='container-body'>

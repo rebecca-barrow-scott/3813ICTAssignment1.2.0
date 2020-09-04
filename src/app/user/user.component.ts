@@ -7,14 +7,14 @@ import { UserService } from '../user.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  name:string
-  role:string = "role"
+  username:string
+  role:string
   user:any
   constructor(private userService:UserService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
-    this.name = this.user.username
+    this.username = this.user.username
+    this.role = this.user.role
   }
-
 }

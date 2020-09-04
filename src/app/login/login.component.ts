@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     this.httpClient.post(BACKEND_URL + '/api/auth', this.userpwd, httpOptions)
     .subscribe((data: any) => {
       if (data.valid){
-        this.userService.setUser({"username": data.username, "birthdate": data.birthdate, "age": data.age, "email": data.email});
+        this.userService.setUser({"username": data.username, "email": data.email, "role": data.role});
         this.router.navigateByUrl('user');
       } else {
         this.feedback = "Sorry, email or password is wrong."

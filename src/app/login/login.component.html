@@ -1,13 +1,5 @@
-
 <h1 class="title">Login</h1>
-<div *ngIf='verify; then ifBlock else elseBlock'></div>
-<ng-template #ifBlock>
-  <p class='ifBlock'></p>
-</ng-template>
-<ng-template #elseBlock>
-  <p class='elseBlock'>{{feedback}}</p>
-</ng-template>
-
+<p class='elseBlock'>{{feedback}}</p>
 <form>
     <div class="form-group">
       <label for="email">Email address</label>

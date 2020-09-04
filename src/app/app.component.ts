@@ -7,9 +7,4 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'chattyapp';
-  user = JSON.parse(localStorage.getItem("user"));
-
-  logout(){
-    localStorage.removeItem("user");
-  }
 }

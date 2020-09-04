@@ -72,24 +72,20 @@ h3.appName{
     color:whitesmoke;
 }
 
-.login-button{
-    font-size: 3vh;
-    background-color: rgb(50, 136, 216);
+.logout-button{
+    background-color: rgba(50, 136, 216, 0);
     border: none;
     outline: none;
-    border-radius: 5px;
-    padding: 3px 10px 5px 10px;
     margin: 0;
     position: absolute;
-    top: 50%;
+    top: 0%;
     left: 90%;
     transform: translate(-50%, -50%);
-}
-.login-button:focus{
-    outline: none;
-    border: 2px solid rgba(164, 182, 216, 0.7);
-    color: white;
-    background-color: rgb(59, 156, 248);
+    svg{
+        width: 2em;
+        height: 2em;
+        color: rgb(179, 179, 179);
+    }
 }
 
 .submit-button{

@@ -17,4 +17,7 @@ export class UserComponent implements OnInit {
     this.username = this.user.username
     this.role = this.user.role
   }
+  logout(){
+    this.userService.logout();
+    }
 }

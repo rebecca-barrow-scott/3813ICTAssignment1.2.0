@@ -15,4 +15,7 @@ export class UserService {
   getUser(){
     return localStorage.getItem("user");
   }
+  logout(){
+    localStorage.removeItem("user");
+  }
 }

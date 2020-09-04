@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cors());
 
 app.post('/api/auth', require('./router/apiAuth'));
+app.post('/getUsers', require('./router/getUSers'));
 
 let server = http.listen(3000, function () {
     let host = server.address().address;

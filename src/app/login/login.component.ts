@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-import { UserPwd } from '../class/userpwd';
+import { UserObj } from '../class/userobj';
 const BACKEND_URL = 'http://localhost:3000';
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   password:string = ""
   verify:boolean = false
   feedback:string = " "
-  userpwd = new UserPwd()
+  userobj = new UserObj()
 
 
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
@@ -28,10 +28,10 @@ export class LoginComponent implements OnInit {
   }
 
   public loginFunc(){
-    this.userpwd.email = this.email
-    this.userpwd.password = this.password
+    this.userobj.email = this.email
+    this.userobj.password = this.password
 
-    this.httpClient.post(BACKEND_URL + '/api/auth', this.userpwd, httpOptions)
+    this.httpClient.post(BACKEND_URL + '/api/auth', this.userobj, httpOptions)
     .subscribe((data: any) => {
       if (data.valid){
         this.userService.setUser({"username": data.username, "email": data.email, "role": data.role});

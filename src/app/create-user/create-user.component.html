@@ -1,0 +1,29 @@
+<h3>Create User .</h3>
+<p class='elseBlock'>{{feedback}}</p>
+<form>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" name='username' [(ngModel)]="username" class="form-control" id="username"  placeholder="Username">
+      </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="text" name='email' [(ngModel)]="email" class="form-control" id="email"  placeholder="Email">
+    </div>
+    <div class="form-group">
+        <label for="role">Role</label><br>
+        <select id='role' name='role' [(ngModel)]="role">
+          <option>User</option>
+          <option>Group Admin</option>
+        </select>
+      </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" name='password' [(ngModel)]="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <div class="form-group">
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" name='confirm_password' [(ngModel)]="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm Password">
+    </div>
+    
+    <button type="submit" class="submit-button" (click)="createUser()">Submit</button>
+</form>

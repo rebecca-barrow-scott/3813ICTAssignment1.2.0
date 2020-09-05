@@ -1,0 +1,14 @@
+<h3>Change role for {{username}}</h3>
+<p class='elseBlock'>{{feedback}}</p>
+<form>
+    <div class="form-group">
+        <label for="role">Role</label><br>
+        <select id='role' name='role' [(ngModel)]="role">
+          <option>User</option>
+          <option>Group Admin</option>
+          <option>Super Admin</option>
+        </select>
+      </div>
+    
+    <button type="submit" class="submit-button" (click)="updateUser()">Submit</button>
+</form>

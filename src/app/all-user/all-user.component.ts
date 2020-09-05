@@ -20,7 +20,6 @@ export class AllUserComponent implements OnInit {
   all_users: any;
   super_users: any;
   group_admin: any;
-  assist_admin: any;
   users: any;
   userobj = new UserObj();
   feedback:string = " ";
@@ -33,7 +32,6 @@ export class AllUserComponent implements OnInit {
         this.all_users = data
         this.super_users = this.filter_users('Super Admin')
         this.group_admin = this.filter_users('Group Admin');
-        this.assist_admin = this.filter_users('Group Assit Admin');
         this.users = this.filter_users('User');
     });
   }
@@ -45,6 +43,9 @@ export class AllUserComponent implements OnInit {
       }
     }
     return user_array
+  }
+  deleteAll(){
+    
   }
 
 }

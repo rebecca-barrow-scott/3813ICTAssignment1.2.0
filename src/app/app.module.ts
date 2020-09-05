@@ -9,14 +9,17 @@ import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { AllUserComponent } from './all-user/all-user.component';
-
+import { CreateUserComponent } from './create-user/create-user.component';
+import { ChangeRoleComponent } from './change-role/change-role.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     LoginComponent,
-    AllUserComponent
+    AllUserComponent,
+    CreateUserComponent,
+    ChangeRoleComponent
   ],
   imports: [
     BrowserModule,

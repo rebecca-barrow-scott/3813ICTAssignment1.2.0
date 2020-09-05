@@ -12,6 +12,8 @@ app.use(cors());
 
 app.post('/api/auth', require('./router/apiAuth'));
 app.post('/getUsers', require('./router/getUSers'));
+app.post('/createUser', require('./router/createUser'));
+app.post('/changeRole', require('./router/changeRole'));
 
 let server = http.listen(3000, function () {
     let host = server.address().address;

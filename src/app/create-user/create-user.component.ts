@@ -15,6 +15,7 @@ const BACKEND_URL = 'http://localhost:3000';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
+  user:any
   username:string
   email:string
   role:string
@@ -25,6 +26,10 @@ export class CreateUserComponent implements OnInit {
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(this.userService.getUser());
+    if(this.user.role != 'Super Admin' && this.user.role != 'Group Admin'){
+      this.router.navigateByUrl('user');
+    }
   }
   createUser(){
     this.userobj.username = this.username

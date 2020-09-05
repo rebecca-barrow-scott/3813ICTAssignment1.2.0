@@ -17,6 +17,7 @@ const BACKEND_URL = 'http://localhost:3000';
   styleUrls: ['./all-user.component.scss']
 })
 export class AllUserComponent implements OnInit {
+  current_user:any
   all_users: any;
   super_users: any;
   group_admin: any;
@@ -27,18 +28,23 @@ export class AllUserComponent implements OnInit {
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
 
   ngOnInit(): void {
-    this.httpClient.post(BACKEND_URL + '/getUsers', this.userobj, httpOptions)
-    .subscribe((data: any) => {
-        this.all_users = data
-        this.super_users = this.filter_users('Super Admin')
-        this.group_admin = this.filter_users('Group Admin');
-        this.users = this.filter_users('User');
-    });
+    this.current_user = JSON.parse(this.userService.getUser());
+    if(this.current_user.role == 'Super Admin' || this.current_user.role == 'Group Admin'){
+      this.httpClient.post(BACKEND_URL + '/getUsers', this.userobj, httpOptions)
+      .subscribe((data: any) => {
+          this.all_users = data
+          this.super_users = this.filter_users('Super Admin')
+          this.group_admin = this.filter_users('Group Admin');
+          this.users = this.filter_users('User');
+      });
+    } else {
+      this.router.navigateByUrl('user');
+    }
   }
   filter_users(filter){
     var user_array = []
     for (let user of this.all_users){
-      if (user.role == filter){
+      if (user.role == filter && user.username != this.current_user.username){
         user_array.push(user)
       }
     }

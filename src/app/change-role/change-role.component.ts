@@ -16,6 +16,7 @@ const BACKEND_URL = 'http://localhost:3000';
   styleUrls: ['./change-role.component.scss']
 })
 export class ChangeRoleComponent implements OnInit {
+  user:any
   username:string
   role:string
   feedback:string
@@ -23,7 +24,13 @@ export class ChangeRoleComponent implements OnInit {
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.username = this.route.snapshot.params.id;
+    this.user = JSON.parse(this.userService.getUser());
+    if(this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
+      this.username = this.route.snapshot.params.id;
+    } else {
+      this.router.navigateByUrl('user');
+    }
+    
   }
   updateUser(){
     this.userobj.username = this.username

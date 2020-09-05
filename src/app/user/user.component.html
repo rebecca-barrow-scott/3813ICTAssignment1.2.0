@@ -15,7 +15,7 @@
         </button>
     </div>
 </div>
-<div class='row' id='profile-ability'>
+<div class='row' id='profile-ability' *ngIf='role == "Super Admin" || role == "Group Admin"'>
     <ul>
         <li><a routerLink='/allUser'>Manage Users</a></li>
     </ul>

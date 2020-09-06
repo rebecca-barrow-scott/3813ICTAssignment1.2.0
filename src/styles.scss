@@ -111,3 +111,32 @@ h3.appName{
     border-radius: 5px;
     background-color: whitesmoke;
 }
+.change_role{
+    float: right;
+    margin-right: 10px;
+    outline: none;
+    border: none;
+    background-color: rgba(164, 182, 216, 0);
+    color: whitesmoke;
+}
+#plus{
+    font-size: 2em;
+    background-color: rgba(164, 182, 216, 0);
+    outline: none;
+    border: none;
+    color:rgb(49, 49, 49);
+}
+#plus:hover{
+    color: rgb(1, 1, 218);
+}
+
+#delete{
+    font-size: 2em;
+    background-color: rgba(164, 182, 216, 0);
+    outline: none;
+    border: none;
+    color:rgb(49, 49, 49);
+}
+#delete:hover{
+    color: rgb(214, 3, 3);
+}

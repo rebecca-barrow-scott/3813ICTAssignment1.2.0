@@ -7,7 +7,6 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 import { UserObj } from '../class/userobj';
-import { LiteralMapEntry } from '@angular/compiler/src/output/output_ast';
 const BACKEND_URL = 'http://localhost:3000';
 
 

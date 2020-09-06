@@ -15,6 +15,7 @@ app.post('/getUsers', require('./router/getUSers'));
 app.post('/createUser', require('./router/createUser'));
 app.post('/changeRole', require('./router/changeRole'));
 app.post('/deleteUsers', require('./router/deleteUsers'));
+app.post('/getGroups', require('./router/getGroups'));
 
 let server = http.listen(3000, function () {
     let host = server.address().address;

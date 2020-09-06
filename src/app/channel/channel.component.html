@@ -1,0 +1,18 @@
+<div class='col-3 float-left' id='groupPanel'>
+    <h5>PLACEHOLDER</h5>
+  </div>
+  
+  
+  <div class='col-9 float-right'>
+    <div class='content'>
+        <div><p style='color:white'>{{name}}</p></div>
+        <div><p style='color:white'>{{new_message}}</p></div>
+        <form>
+            <div class="form-group">
+                <input type="text" name='message' [(ngModel)]="message" class="form-control" id="message"  placeholder="Message">
+                <button type="submit" class="message-button" (click)="sendMessage()">Send</button>
+            </div>
+        </form>
+    </div>
+  </div>
+  

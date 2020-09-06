@@ -1,15 +1,14 @@
 <div class='col-3 float-left' id='groupPanel'>
     <h5><a routerLink='/user'>Profile</a></h5>
-    <h5>Create New Group +</h5>
+    <h5><a href="#" style="color:red;">Create New Group +</a></h5>
     <div *ngFor='let group of group_array'>
-        <h5>{{group.name}}</h5>
+        <h5><a routerLink='/group/{{group.id}}' style="color:orange;">{{group.name}}</a></h5>
         <div *ngFor='let channel of channel_array'>
             <div *ngIf='group.id == channel.group_id'>
-                <h6><a routerLink='/channel/:channel.id'>{{channel.name}}</a></h6>
+                <h6><a routerLink='/channel/{{channel.id}}' style="color:yellow;">{{channel.name}}</a></h6>
             </div>
         </div>
     </div>
-    
     <img src="../assets/images/kook2.png" class='kook-img'>
 </div>
 

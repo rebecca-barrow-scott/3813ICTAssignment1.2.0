@@ -1,0 +1,22 @@
+<div class='col-3 float-left' id='groupPanel'>
+    <h5>PLACEHOLDER</h5>
+  </div>
+  
+  
+  <div class='col-9 float-right'>
+    <div class='content'>
+        <p style='color:yellow'>{{feedback}}</p>
+        <form>
+            <div class="form-group">
+                <input type="text" name='username' [(ngModel)]="username" class="form-control" id="username"  placeholder="Add User">
+            </div>
+            <div *ngFor='let channel of channel_array'>
+                <input type="checkbox" id="channel" name="channel" value="Channel">
+                <label for="channel" style='color:yellow'>{{channel.name}}</label>
+            </div>
+            
+            <button type="submit" class="submit-button" (click)="searchUser()">Search</button>
+        </form>
+    </div>
+  </div>
+  

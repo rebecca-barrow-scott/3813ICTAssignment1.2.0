@@ -11,6 +11,8 @@ import { LoginComponent } from './login/login.component';
 import { AllUserComponent } from './all-user/all-user.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ChangeRoleComponent } from './change-role/change-role.component';
+import { ChannelComponent } from './channel/channel.component';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ChangeRoleComponent } from './change-role/change-role.component';
     LoginComponent,
     AllUserComponent,
     CreateUserComponent,
-    ChangeRoleComponent
+    ChangeRoleComponent,
+    ChannelComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

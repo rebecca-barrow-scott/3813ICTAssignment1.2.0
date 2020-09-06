@@ -22,7 +22,7 @@ export class CreateUserComponent implements OnInit {
   password:string
   confirm_password:string
   feedback:string
-  userobj = new UserObj()
+  userobj = new UserObj();
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
 
   ngOnInit(): void {

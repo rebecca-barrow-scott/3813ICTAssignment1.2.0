@@ -5,13 +5,17 @@ import { AllUserComponent } from './all-user/all-user.component';
 import { LoginComponent } from './login/login.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { ChangeRoleComponent } from './change-role/change-role.component';
+import { ChannelComponent } from './channel/channel.component';
+import { GroupComponent } from './group/group.component';
 
 const routes: Routes = [
   {path: 'user', component: UserComponent},
   {path: 'allUser', component: AllUserComponent},
   {path: '', component: LoginComponent},
   {path: 'createUser', component: CreateUserComponent},
-  {path: 'changeRole/:id', component: ChangeRoleComponent}
+  {path: 'changeRole/:id', component: ChangeRoleComponent},
+  {path: 'channel/:id', component: ChannelComponent},
+  {path: 'group/:id', component: GroupComponent}
 ];
 
 @NgModule({

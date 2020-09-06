@@ -5,7 +5,7 @@
         <h5><a routerLink='/group/{{group.id}}' style="color:orange;">{{group.name}}</a></h5>
         <div *ngFor='let channel of channel_array'>
             <div *ngIf='group.id == channel.group_id'>
-                <h6><a routerLink='/channel/{{channel.id}}' style="color:yellow;">{{channel.name}}</a></h6>
+                <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
             </div>
         </div>
     </div>

@@ -12,9 +12,9 @@ module.exports = function(req,res){
             }
         }
         if(valid){
-            feedback = "User Exists";
+            feedback = "User exists";
         } else {
-            feedback = "User doesn't exists";
+            feedback = "User doesn't exist";
         }
         send_data = {"feedback": feedback};
         res.send(send_data);

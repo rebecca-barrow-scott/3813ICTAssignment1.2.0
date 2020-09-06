@@ -1,13 +1,22 @@
-<h1 class="title">Login</h1>
-<p class='elseBlock'>{{feedback}}</p>
-<form>
-    <div class="form-group">
-      <label for="email">Email address</label>
-      <input type="text" name='email' class="form-control" id="email"  placeholder="Enter email" [(ngModel)]="email">
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" name='password' class="form-control" id="password" placeholder="Password" [(ngModel)]="password">
-    </div>
-    <button type="submit" class="submit-button" value="Login" (click)="loginFunc()">Submit</button>
-  </form>
+<div class='col-3 float-left' id='groupPanel'>
+  <h5>PLACEHOLDER</h5>
+</div>
+
+
+<div class='col-9 float-right'>
+  <div class='content'>
+    <h1 class="title">Login</h1>
+    <p class='feedback'>{{feedback}}</p>
+    <form>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" name='email' class="form-control" id="email"  placeholder="Enter email" [(ngModel)]="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name='password' class="form-control" id="password" placeholder="Password" [(ngModel)]="password">
+      </div>
+      <button type="submit" class="submit-button" value="Login" (click)="loginFunc()">Submit</button>
+    </form>
+  </div>
+</div>

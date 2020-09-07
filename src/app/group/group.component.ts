@@ -20,14 +20,17 @@ export class GroupComponent implements OnInit {
   id:any;
   userGroupObj = new UserGroupObj()
   feedback:string;
-  username:string = "John";
+  username:string;
   channel_array:any;
-  channel:any;
+  channel:any
   userobj = new UserObj();
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = {"id": this.route.snapshot.params.id};
+    this.getGroupChannels()
+  }
+  getGroupChannels(){
     this.httpClient.post(BACKEND_URL + '/getChannel', this.id, httpOptions)
     .subscribe((data: any) => {
       if (data.feedback == null){
@@ -37,8 +40,8 @@ export class GroupComponent implements OnInit {
         this.feedback = data.feedback;
       }
     });
-
   }
+
   searchUser(){
     this.userGroupObj.username = this.username
     this.userGroupObj.group_id = this.id
@@ -46,7 +49,11 @@ export class GroupComponent implements OnInit {
       this.channel_array.splice(0, 1)
       this.userGroupObj.channels = this.channel_array
     } else {
-      this.userGroupObj.channels = this.channel
+      for (let item of this.channel_array){
+        if (item.name == this.channel){
+          this.userGroupObj.channels = [{"id": item.id, "name": item.name}]
+        }
+      }
     }
     this.httpClient.post(BACKEND_URL + '/searchUser', this.userGroupObj, httpOptions)
     .subscribe((data: any) => {
@@ -80,9 +87,6 @@ export class GroupComponent implements OnInit {
       }
     });
   }
-
-
-  //need to fix checking againts 'Channel 1.1', 'All' works
   addToChannel(){
     this.httpClient.post(BACKEND_URL + '/addUserChannel', this.userGroupObj, httpOptions)
     .subscribe((data: any) => {

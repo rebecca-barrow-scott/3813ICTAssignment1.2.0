@@ -5,7 +5,7 @@ module.exports = function(req,res){
     var valid = false;
     if (req.body.channels == undefined){
         res.send({"feedback": "Select a channel"});
-    } else if (req.body.username == undefined){
+    } else if (req.body.username == ""){
         res.send({"feedback": "Fill out username"});
     }
     else {

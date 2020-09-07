@@ -14,6 +14,7 @@
             <div class="form-group">
                 <label for="channel">Channel</label><br>
                 <select id='channel' name='channel' [(ngModel)]='channel'>
+                    <option>Select Channel</option>
                     <option *ngFor='let channel of channel_array'>{{channel.name}}</option>
                 </select>
             </div>

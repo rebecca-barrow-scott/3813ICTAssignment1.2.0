@@ -1,20 +1,21 @@
 <div class='col-3 float-left' id='groupPanel'>
-    <h5><a routerLink='/user'>Profile</a></h5>
-    <h5><a routerLink='/createGroup'>Create New Group 
-        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-        </svg>
-    </a></h5>
+    <h5 id='profile_link'><a routerLink='/user'>Profile</a></h5>
+    <h5 id='new_group_link'><a routerLink='/createGroup'>New Group </a></h5>
     <div *ngFor='let group of group_array'>
-        <h5><a routerLink='/group/{{group.id}}' style="color:yellow;">{{group.name}}</a></h5>
-        <h5>
-            <button (click)="createChannel(group.id)" style="color:yellow;">
-                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                </svg>
-            </button>
-        </h5>
-        <div *ngFor='let channel of channel_array'>
+        <div class='row'>
+            <div class='col-9' id='group_name'>
+                <a routerLink='/group/{{group.id}}'>{{group.name}}</a>
+            </div>
+            <div class='col-3' id='group_btn'>
+                <button (click)="createChannel(group.id)">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div *ngFor='let channel of channel_array' class="channel_name">
             <div *ngIf='group.id == channel.group_id'>
                 <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
             </div>
@@ -45,7 +46,7 @@
         </div>
         <div class='row' id='profile-ability' *ngIf='role == "Super Admin" || role == "Group Admin"'>
             <ul>
-                <li><a routerLink='/allUser'>Manage Users</a></li>
+                <li><a routerLink='/allUser' class="manage_link">Manage Users</a></li>
             </ul>
         </div>
     </div>

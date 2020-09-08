@@ -68,6 +68,7 @@ h3.appName{
     bottom: 0;
     width:125px;
     height: 125px;
+    z-index: 95;
 }
 .dots-img{
     height:30px;
@@ -139,7 +140,7 @@ h3.appName{
     color:rgb(70, 70, 70);
 }
 #plus:hover{
-    color: rgb(1, 1, 218);
+    color: rgb(52, 131, 235);
 }
 
 #delete{
@@ -213,4 +214,73 @@ h3 {
     padding-top: 20px;
     padding-bottom: 0px;
     margin-bottom: 0;
+}
+#group_btn{
+    padding-right: 10px;
+    button{
+        background-color: rgba(164, 182, 216, 0);
+        outline: none;
+        border:none;
+        color: rgb(70, 70, 70);
+        padding-top: 10px;
+        position:relative;
+        z-index: 100;
+        svg{
+            width: 2em;
+            height: 2em;
+        }  
+    }
+    button:hover{
+        color: rgb(43, 104, 184);
+    }
+        
+}
+#group_name{
+    padding-left: 20px;
+    padding-top: 10px;
+    a{
+        color: rgb(57, 143, 255);
+        font-size: 1.2em;
+        font-family: 'Share Tech Mono', monospace;
+    }
+    a{
+        text-decoration: none;
+    }
+    
+}
+#group_name a:hover{
+    color: rgb(43, 104, 184);
+}
+.channel_name{
+    a{
+        color: rgb(105, 104, 104);
+        font-family: 'Inconsolata', monospace;
+    }
+    a:hover{
+        color: rgb(43, 104, 184);
+        text-decoration: none;
+    }
+}
+
+#profile_link, #new_group_link{
+    a{
+        color: rgb(57, 143, 255);
+        font-family: 'Share Tech Mono', monospace;
+    }
+    a:hover{
+        text-decoration: none;
+    }
+    padding: 5px;
+}
+#profile_link a:hover, #new_group_link a:hover{
+    color: rgb(43, 104, 184);
+}
+.manage_link{
+    color: rgb(57, 143, 255);
+    font-family: 'Inconsolata', monospace;
+    font-size: 1.1em;
+}
+.manage_link:hover{
+    text-decoration: none;
+    color: rgb(43, 104, 184);
 }

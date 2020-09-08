@@ -29,12 +29,29 @@ export class GroupComponent implements OnInit {
   all_channel_users:any;
   channel_users:any;
   channel_user = new ChannelUser();
+  group_array:any
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = {"id": this.route.snapshot.params.id};
+    this.getGroups()
     this.getGroupChannels()
     this.getUsers()
+  }
+  getGroups(){
+    this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)
+    .subscribe((data: any) => {
+      if(data.feedback == null){
+        this.group_array = JSON.parse(data.groups);
+        for(let group of this.group_array){
+          if(this.id.id == group.id){
+            this.id.name = group.name
+          }
+        }
+      } else {
+        this.feedback = data.feedback;
+      }
+    });
   }
   getGroupChannels(){
     this.httpClient.post(BACKEND_URL + '/getChannel', this.id, httpOptions)

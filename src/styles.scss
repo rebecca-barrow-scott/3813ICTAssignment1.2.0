@@ -284,3 +284,37 @@ h3 {
     text-decoration: none;
     color: rgb(43, 104, 184);
 }
+#title_trash{
+    svg{
+        width: 1.5em;
+        height: 1.5em;
+    }
+    background-color: rgba(164, 182, 216, 0);
+    outline: none;
+    border:none;
+    color: rgb(70, 70, 70);
+}
+#title_trash:hover{
+    color: rgb(214, 3, 3);
+}
+#channel_head{
+    color:whitesmoke;
+    padding-top: 10px;
+    font-size: 1.1em;
+    button{
+        padding-top: 10px;
+    }
+    button:hover{
+        color: rgb(214, 3, 3);
+    }
+}
+table{
+    width: 100%;
+    td{
+        width: 100%;
+        border-bottom: 1px solid rgb(180, 180, 180);
+    }
+}
+.remove_user{
+    color: red;
+}

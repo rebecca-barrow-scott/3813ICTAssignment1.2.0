@@ -14,12 +14,12 @@ module.exports = function(req,res){
         }
         userChannels.push(userChannel)
     }
-    fs.readFile('../server/data/userChannel.json', 'utf-8', function(err, data){
+    fs.readFile('../server/data/channelUsers.json', 'utf-8', function(err, data){
         if (err) throw err;
         userChannel_array = JSON.parse(data);
         user_data = userChannel_array.concat(userChannels);
         new_data = JSON.stringify(user_data);
-        fs.writeFile('../server/data//userChannel.json', new_data, 'utf-8', function(err){
+        fs.writeFile('../server/data/channelUsers.json', new_data, 'utf-8', function(err){
             if (err) throw err;
         });
     });  

@@ -20,6 +20,20 @@
             </div>
             <button type="submit" class="submit-button" (click)="searchUser()">Search</button>
         </form>
+        <table *ngFor="let channel of channel_array">
+            <tr>
+                <th *ngIf="channel.name != 'All'">{{channel.name}}</th>
+            </tr>
+            <tr *ngFor="let channel_user of channel_users | keyvalue">
+                <div *ngFor="let user of channel_user.value">
+                    <div *ngIf='channel_user.key == channel.id'>
+                        <!-- THIS IS A USER NOT CHANNEL_USER -->
+                        <td>{{user.username}}</td>
+                    </div>
+                </div>
+            </tr>
+            
+        </table>
     </div>
   </div>
   

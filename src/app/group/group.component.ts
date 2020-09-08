@@ -24,11 +24,15 @@ export class GroupComponent implements OnInit {
   channel_array:any;
   channel:any
   userobj = new UserObj();
+  all_users:any;
+  all_channel_users:any;
+  channel_users:any;
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = {"id": this.route.snapshot.params.id};
     this.getGroupChannels()
+    this.getUsers()
   }
   getGroupChannels(){
     this.httpClient.post(BACKEND_URL + '/getChannel', this.id, httpOptions)
@@ -41,7 +45,35 @@ export class GroupComponent implements OnInit {
       }
     });
   }
-
+  getUsers(){
+    this.httpClient.post(BACKEND_URL + '/getUsers', this.userobj, httpOptions)
+      .subscribe((data: any) => {
+          this.all_users = data
+          this.getChannelUsers()
+      });
+  }
+  getChannelUsers(){
+    this.httpClient.post(BACKEND_URL + '/getChannelUsers', this.userobj, httpOptions)
+      .subscribe((data: any) => {
+          this.all_channel_users = JSON.parse(data.channelUsers)
+          this.channel_users = this.sortUsers()
+      });
+  }
+  sortUsers(){
+    var channel_users = {}
+    for(let user of this.all_users){
+      for(let item of this.all_channel_users){
+        if(user.username == item.user_id){
+          if(item.channel_id in channel_users){
+            channel_users[item.channel_id].push(user)
+          } else {
+           channel_users[item.channel_id] = [user]
+          }
+        }
+      }
+    }
+    return channel_users
+  }
   searchUser(){
     this.userGroupObj.username = this.username
     this.userGroupObj.group_id = this.id

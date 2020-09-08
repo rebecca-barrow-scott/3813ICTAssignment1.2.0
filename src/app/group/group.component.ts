@@ -160,6 +160,19 @@ export class GroupComponent implements OnInit {
         }
       });
     }
-   
+  }
+  removeGroup(){
+    let valid = confirm('Are you sure you want to remove this group?');
+    if(valid){
+      this.userGroupObj.group_id = this.id.id
+      this.httpClient.post(BACKEND_URL + '/removeGroup', this.userGroupObj, httpOptions)
+      .subscribe((data: any) => {
+        if (data.feedback == null){
+          this.router.navigateByUrl('user');
+        } else{
+          this.feedback = data.feedback
+        }
+      });
+    }
   }
 }

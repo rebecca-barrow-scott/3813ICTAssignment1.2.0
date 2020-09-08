@@ -22,6 +22,9 @@ app.post('/addUserChannel', require('./router/addUserChannel'));
 app.post('/getChannelUsers', require('./router/getChannelUsers'));
 app.post('/createGroup', require('./router/createGroup'));
 app.post('/createChannel', require('./router/createChannel'));
+app.post('/removeChannelUser', require('./router/removeChannelUser'));
+app.post('/removeChannel', require('./router/removeChannel'));
+
 
 let server = http.listen(3000, function () {
     let host = server.address().address;

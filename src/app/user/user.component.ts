@@ -7,6 +7,8 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 import { UserObj } from '../class/userobj';
+import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
+
 const BACKEND_URL = 'http://localhost:3000';
 
 
@@ -20,6 +22,7 @@ export class UserComponent implements OnInit {
   role:string;
   user:any;
   userobj = new UserObj();
+  channelobj = new ChannelObj();
   feedback:string = "";
   group_array:any;
   channel_array:any;
@@ -43,5 +46,20 @@ export class UserComponent implements OnInit {
   }
   logout(){
     this.userService.logout();
-    }
+  }
+
+  createChannel(id){
+    var name = prompt("Please enter a channel name");
+    this.channelobj.name = name
+    this.channelobj.group_id = id
+    this.httpClient.post(BACKEND_URL + '/createChannel', this.channelobj, httpOptions)
+    .subscribe((data: any) => {
+      if (data.feedback == null){
+        window.location.reload();
+      } else {
+        this.feedback = data.feedback
+      }
+    });
+  }
+
 }

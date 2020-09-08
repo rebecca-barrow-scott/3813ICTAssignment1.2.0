@@ -8,6 +8,7 @@ const httpOptions = {
 };
 import { UserGroupObj } from '../class/usergroupobj';
 import { UserObj } from '../class/userobj';
+import { ChannelUser } from '../class/channeluser';
 const BACKEND_URL = 'http://localhost:3000';
 
 
@@ -27,6 +28,7 @@ export class GroupComponent implements OnInit {
   all_users:any;
   all_channel_users:any;
   channel_users:any;
+  channel_user = new ChannelUser();
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -128,5 +130,36 @@ export class GroupComponent implements OnInit {
         this.feedback = data.feedback
       }
     });
+  }
+  removeUser(channel_id, user_id){
+    let valid = confirm('Are you sure you want to remove '+user_id+' from the channel?');
+    if(valid){
+      this.channel_user.channel_id = channel_id
+      this.channel_user.user_id= user_id
+      this.httpClient.post(BACKEND_URL + '/removeChannelUser', this.channel_user, httpOptions)
+      .subscribe((data: any) => {
+        if (data.feedback == null){
+            window.location.reload();
+        } else{
+          this.feedback = data.feedback
+        }
+      });
+    }
+
+  }
+  removeChannel(channel_id){
+    let valid = confirm('Are you sure you want to remove this channel?');
+    if(valid){
+      this.channel_user.channel_id = channel_id
+      this.httpClient.post(BACKEND_URL + '/removeChannel', this.channel_user, httpOptions)
+      .subscribe((data: any) => {
+        if (data.feedback == null){
+            window.location.reload();
+        } else{
+          this.feedback = data.feedback
+        }
+      });
+    }
+   
   }
 }

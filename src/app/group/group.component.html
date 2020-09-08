@@ -25,13 +25,34 @@
         </form>
         <table *ngFor="let channel of channel_array">
             <tr>
-                <th *ngIf="channel.name != 'All'">{{channel.name}}</th>
+                <th *ngIf="channel.name != 'All'" colspan='2'>{{channel.name}}</th>
+                <th *ngIf="channel.name != 'All'">
+                    <button (click)='removeChannel(channel.id)' class='change_role'>
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                          </svg>
+                    </button>
+                </th>
             </tr>
             <tr *ngFor="let channel_user of channel_users | keyvalue">
                 <div *ngFor="let user of channel_user.value">
                     <div *ngIf='channel_user.key == channel.id'>
                         <!-- THIS IS A USER NOT CHANNEL_USER -->
                         <td>{{user.username}}</td>
+                        <td>
+                            <button (click)='removeUser(channel.id, user.username)' class='change_role'>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                  </svg>
+                            </button>
+                        </td>
+                        <td>
+                            <button routerLink='/changeRole/{{user.username}}' class='change_role'>
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"/>
+                                </svg>
+                            </button>
+                        </td>
                     </div>
                 </div>
             </tr>

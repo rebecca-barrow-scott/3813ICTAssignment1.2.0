@@ -126,6 +126,10 @@ h3.appName{
     border: none;
     background-color: rgba(164, 182, 216, 0);
     color: whitesmoke;
+    svg{
+        margin: 0;
+        padding: 0;
+    }
 }
 #plus{
     font-size: 2em;
@@ -181,4 +185,32 @@ h3.appName{
         }
         
     }
+}
+
+table{
+    width: 100%;
+}
+ul{
+    list-style-type: none;
+    width: 100%;
+}
+li{
+    padding: 5px 0px;
+    margin-bottom: 5px;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+}
+h3 {
+    padding-top: 10px;
+    padding-left: 5px;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.list-title{
+    border-bottom: none;
+    font-size: 1.1em;
+    font-family: 'Inconsolata', monospace;
+    padding-top: 20px;
+    padding-bottom: 0px;
+    margin-bottom: 0;
 }

@@ -30,13 +30,23 @@ export class GroupComponent implements OnInit {
   channel_users:any;
   channel_user = new ChannelUser();
   group_array:any
+  user:any
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.id = {"id": this.route.snapshot.params.id};
-    this.getGroups()
-    this.getGroupChannels()
-    this.getUsers()
+    this.user = JSON.parse(this.userService.getUser());
+    if(this.user == undefined){
+      this.router.navigateByUrl('/');
+    }
+    if(this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
+      this.id = {"id": this.route.snapshot.params.id};
+      this.getGroups()
+      this.getGroupChannels()
+      this.getUsers()
+    } else {
+      this.router.navigateByUrl('user');
+    }
+    
   }
   getGroups(){
     this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)

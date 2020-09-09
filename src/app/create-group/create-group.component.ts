@@ -21,9 +21,18 @@ export class CreateGroupComponent implements OnInit {
   channel:string = 'Channel 1'
   groupobj = new GroupObj()
   channelobj = new ChannelObj()
+  user:any;
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(this.userService.getUser());
+    if(this.user == undefined){
+      this.router.navigateByUrl('/');
+    }
+    if(this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
+    } else {
+      this.router.navigateByUrl('user');
+    }
   }
   createGroup(){
     this.groupobj.name = this.group

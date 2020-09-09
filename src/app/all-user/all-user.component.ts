@@ -29,7 +29,7 @@ export class AllUserComponent implements OnInit {
   ngOnInit(): void {
     this.current_user = JSON.parse(this.userService.getUser());
     if(this.current_user == undefined){
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('user');
     }
     if(this.current_user.role == 'Super Admin' || this.current_user.role == 'Group Admin'){
       this.httpClient.post(BACKEND_URL + '/getUsers', this.userobj, httpOptions)

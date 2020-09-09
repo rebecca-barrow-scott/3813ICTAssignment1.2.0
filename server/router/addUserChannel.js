@@ -6,11 +6,11 @@ module.exports = function(req,res){
     for(channel of channels){
         channel_ids.push(channel.id)
     }
-    
     for(id of channel_ids){
         var userChannel ={
             'channel_id': id,
-            'user_id': req.body.username
+            'user_id': req.body.username,
+            'role': "Member"
         }
         userChannels.push(userChannel)
     }

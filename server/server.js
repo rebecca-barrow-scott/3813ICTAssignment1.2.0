@@ -25,6 +25,7 @@ app.post('/createChannel', require('./router/createChannel'));
 app.post('/removeChannelUser', require('./router/removeChannelUser'));
 app.post('/removeChannel', require('./router/removeChannel'));
 app.post('/removeGroup', require('./router/removeGroup'));
+app.post('/changeRoleGroup', require('./router/changeRoleGroup'));
 
 let server = http.listen(3000, function () {
     let host = server.address().address;

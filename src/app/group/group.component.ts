@@ -148,6 +148,18 @@ export class GroupComponent implements OnInit {
     });
   }
   addToChannel(){
+    this.userGroupObj.username = this.username
+    this.userGroupObj.group_id = this.id
+    if(this.channel == "All"){
+      this.channel_array.splice(0, 1)
+      this.userGroupObj.channels = this.channel_array
+    } else {
+      for (let item of this.channel_array){
+        if (item.name == this.channel){
+          this.userGroupObj.channels = [{"id": item.id, "name": item.name}]
+        }
+      }
+    }
     this.httpClient.post(BACKEND_URL + '/addUserChannel', this.userGroupObj, httpOptions)
     .subscribe((data: any) => {
       if (data.feedback == null){
@@ -200,5 +212,18 @@ export class GroupComponent implements OnInit {
         }
       });
     }
+  }
+  changeRoleGroup(user_id){
+    this.userGroupObj.group_id = this.id.id
+    this.userGroupObj.username = user_id
+    this.userGroupObj.channels = this.channel_array
+    this.httpClient.post(BACKEND_URL + '/changeRoleGroup', this.userGroupObj, httpOptions)
+    .subscribe((data: any) => {
+      if (data.feedback == null){
+        this.addToChannel()
+      } else {
+        this.feedback = data.feedback
+      }
+    });
   }
 }

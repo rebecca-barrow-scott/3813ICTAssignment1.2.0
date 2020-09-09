@@ -30,9 +30,6 @@ export class ChangeRoleComponent implements OnInit {
     }
     if(this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
       this.username = this.route.snapshot.params.id;
-      if(this.username == this.user.username){
-        this.router.navigateByUrl('allUser');
-      }
     } else {
       this.router.navigateByUrl('user');
     }

@@ -9,6 +9,8 @@ const httpOptions = {
 import { UserGroupObj } from '../class/usergroupobj';
 import { UserObj } from '../class/userobj';
 import { ChannelUser } from '../class/channeluser';
+import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
+
 const BACKEND_URL = 'http://localhost:3000';
 
 
@@ -32,6 +34,10 @@ export class GroupComponent implements OnInit {
   group_array:any
   user:any
   channels:any
+  group_array2:any
+  channel_array2:any
+  channels2:any
+  channelobj = new ChannelObj();
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -45,6 +51,7 @@ export class GroupComponent implements OnInit {
       this.getUsers()
     }
   }
+
   getGroups(){
     this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)
     .subscribe((data: any) => {
@@ -92,12 +99,12 @@ export class GroupComponent implements OnInit {
         if(user.username == item.user_id){
           if(item.channel_id in channel_users){
             channel_users[item.channel_id].push(item)
-            if(item.user_id == this.user.username){
-              this.user.role = item.role
-            }
           } else {
            channel_users[item.channel_id] = [item]
           }
+        }
+        if(this.user.username == item.user_id){
+          this.user.role = item.role
         }
       }
     }
@@ -227,4 +234,22 @@ export class GroupComponent implements OnInit {
       }
     });
   }
+  createChannel(id){
+    if(this.user.role == "Super Admin" || this.user.role == "Group Admin" || this.user.role == "Group Assist Admin"){
+      var name = prompt("Please enter a channel name");
+      this.channelobj.name = name
+      this.channelobj.group_id = id
+      this.httpClient.post(BACKEND_URL + '/createChannel', this.channelobj, httpOptions)
+      .subscribe((data: any) => {
+        if (data.feedback == null){
+          window.location.reload();
+        } else {
+          this.feedback = data.feedback
+        }
+      });
+    } else {
+      alert("Incorrect permission")
+    }
+  }
+    
 }

@@ -25,8 +25,14 @@ export class ChangeRoleComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
+    if(this.user == undefined){
+      this.router.navigateByUrl('/');
+    }
     if(this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
       this.username = this.route.snapshot.params.id;
+      if(this.username == this.user.username){
+        this.router.navigateByUrl('allUser');
+      }
     } else {
       this.router.navigateByUrl('user');
     }

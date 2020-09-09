@@ -27,6 +27,9 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
+    if(this.user == undefined){
+      this.router.navigateByUrl('/');
+    }
     if(this.user.role != 'Super Admin' && this.user.role != 'Group Admin'){
       this.router.navigateByUrl('user');
     }

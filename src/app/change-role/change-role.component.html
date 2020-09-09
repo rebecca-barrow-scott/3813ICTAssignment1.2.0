@@ -12,8 +12,8 @@
             <label for="role">Role</label><br>
             <select id='role' name='role' [(ngModel)]="role">
               <option>User</option>
-              <option>Group Admin</option>
-              <option>Super Admin</option>
+              <option *ngIf='user.role == "Super Admin"'>Group Admin</option>
+              <option *ngIf='user.role == "Super Admin"'>Super Admin</option>
             </select>
           </div>
         

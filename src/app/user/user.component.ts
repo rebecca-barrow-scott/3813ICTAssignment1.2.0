@@ -26,6 +26,9 @@ export class UserComponent implements OnInit {
   feedback:string = "";
   group_array:any;
   channel_array:any;
+  all_channel_users:any;
+  channel_users:any;
+  channels:any;
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
 
   ngOnInit(): void {
@@ -42,6 +45,11 @@ export class UserComponent implements OnInit {
           if(data.feedback == null){
             this.group_array = JSON.parse(data.groups);
             this.channel_array = JSON.parse(data.channels);
+            if(this.user.role == "Super Admin" || this.user.role == "Group Admin" ){
+              this.channels = this.channel_array
+            } else {
+              this.getChannelUsers()
+            }
           } else {
             this.feedback = data.feedback;
           }
@@ -65,5 +73,28 @@ export class UserComponent implements OnInit {
       }
     });
   }
-
+  getChannelUsers(){
+    this.httpClient.post(BACKEND_URL + '/getChannelUsers', this.userobj, httpOptions)
+      .subscribe((data: any) => {
+          this.all_channel_users = JSON.parse(data.channelUsers)
+          this.channels = this.sortChannels()
+      });
+  }
+  sortChannels(){
+    var channels = []
+    var refined_channels = []
+    for (let channel_user of this.all_channel_users){
+      if (channel_user.user_id == this.user.username){
+        channels.push(channel_user.channel_id)
+      }
+    }
+    for(let channel of this.channel_array){
+      for(let id of channels){
+        if(channel.id == id){
+          refined_channels.push(channel)
+        }
+      }
+    }
+    return refined_channels
+  }
 }

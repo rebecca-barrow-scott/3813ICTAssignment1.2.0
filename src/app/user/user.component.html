@@ -15,7 +15,7 @@
             </div>
         </div>
         
-        <div *ngFor='let channel of channel_array' class="channel_name">
+        <div *ngFor='let channel of channels' class="channel_name">
             <div *ngIf='group.id == channel.group_id'>
                 <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
             </div>

@@ -20,11 +20,16 @@ export class LoginComponent implements OnInit {
   verify:boolean = false
   feedback:string = " "
   userobj = new UserObj()
+  user:any
 
 
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
   
   ngOnInit(): void {
+    this.user = JSON.parse(this.userService.getUser());
+    if(this.user != undefined){
+      this.router.navigateByUrl('user');
+    }
   }
 
   public loginFunc(){

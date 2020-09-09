@@ -31,6 +31,7 @@ export class GroupComponent implements OnInit {
   channel_user = new ChannelUser();
   group_array:any
   user:any
+  channels:any
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
 
   ngOnInit(): void {

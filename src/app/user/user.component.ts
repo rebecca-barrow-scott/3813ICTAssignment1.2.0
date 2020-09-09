@@ -30,19 +30,23 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
-    this.username = this.user.username
-    this.role = this.user.role
-
-    //FOR SIDE PANEL
-      this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)
-      .subscribe((data: any) => {
-        if(data.feedback == null){
-          this.group_array = JSON.parse(data.groups);
-          this.channel_array = JSON.parse(data.channels);
-        } else {
-          this.feedback = data.feedback;
-        }
-      });
+    if( this.user == undefined){
+      this.router.navigateByUrl('/');
+    } else {
+      this.username = this.user.username
+      this.role = this.user.role
+  
+      //FOR SIDE PANEL
+        this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)
+        .subscribe((data: any) => {
+          if(data.feedback == null){
+            this.group_array = JSON.parse(data.groups);
+            this.channel_array = JSON.parse(data.channels);
+          } else {
+            this.feedback = data.feedback;
+          }
+        });
+    }
   }
   logout(){
     this.userService.logout();

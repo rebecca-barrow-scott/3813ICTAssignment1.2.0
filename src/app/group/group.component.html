@@ -7,28 +7,55 @@
     <div class='content'>
         <div class='row'>
             <h3 class='title' class='col-10'>{{id.name}}</h3>
-            <button (click)='removeGroup()' class='col-2 float right' id='title_trash'>
+            <button (click)='removeGroup()' class='col-2 float right' id='title_trash' *ngIf="user.role != 'Member'">
                 <svg viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                     </svg>
             </button>
         </div>
-        <p><strong>Admins</strong></p>
-        <!-- <table  *ngFor="let channel of channel_array">
+        <table>
+            <tr>
+                <th id="channel_head">Admins</th>
+            </tr>
+            <div *ngFor="let channel of channel_array">
+                <div *ngFor="let channel_user of channel_users | keyvalue">
+                    <tr *ngFor="let user of channel_user.value" class='div_table'>
+                            <td class='table_user' *ngIf='channel_user.key == channel.id && user.role != "Member"'>{{user.user_id}}</td>
+                    </tr>
+                </div>
+            </div>
+            <tr *ngFor="let user of all_users">
+                <td *ngIf="user.role == 'Group Admin'">{{user.username}}</td>
+            </tr>
+           
+        </table>
+        <table *ngFor="let channel of channel_array">
+            <tr>
+                <th *ngIf="channel.name != 'All'" id="channel_head"><a routerLink="/channel/{{channel.id}}"  *ngIf="user.role != 'Member'; else elseBlock">{{channel.name}}</a></th>
+                <ng-template #elseBlock>
+                    <th *ngIf="channel.name != 'All'" id="channel_head">{{channel.name}}</th>
+                </ng-template>
+                <th *ngIf="channel.name != 'All'"  id="channel_head">
+                    <button (click)='removeChannel(channel.id)' class='change_role' *ngIf="user.role != 'Member'">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                        </svg>
+                    </button>
+                </th>
+            </tr>
             <tr *ngFor="let channel_user of channel_users | keyvalue">
-                <div *ngFor="let user of channel_user.value">
-                    <div *ngIf='channel_user.key == channel.id && user.role != "User"'>
-                        THIS IS A USER NOT CHANNEL_USER 
-                        <td>{{user.username}}</td>
+                <div *ngFor="let u of channel_user.value">
+                    <div *ngIf='channel_user.key == channel.id && u.role == "Member"'>
+                        <td class='table_user'>{{u.user_id}}</td>
                         <td>
-                            <button (click)='removeUser(channel.id, user.username)' class='change_role'>
+                            <button (click)='removeUser(channel.id, user.username)' class='change_role' *ngIf="user.role != 'Member'">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                   </svg>
                             </button>
                         </td>
                         <td>
-                            <button routerLink='/changeRole/{{user.username}}' class='change_role'>
+                            <button routerLink='/changeRole/{{user.username}}' class='change_role' *ngIf="user.role != 'Member'">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"/>
                                 </svg>
@@ -37,8 +64,8 @@
                     </div>
                 </div>
             </tr>
-        </table> -->
-        <form >
+        </table>
+        <form *ngIf="user.role != 'Member'" class="member_form">
             <div class="form-group">
                 <label for="username">Add User</label><br>
                 <input type="text" name='username' [(ngModel)]="username" class="form-control" id="username"  placeholder="Username">
@@ -52,40 +79,6 @@
             </div>
             <button type="submit" class="submit-button" (click)="searchUser()">Search</button>
         </form>
-        <table *ngFor="let channel of channel_array">
-            <tr>
-                <th *ngIf="channel.name != 'All'" id="channel_head">{{channel.name}}</th>
-                <th *ngIf="channel.name != 'All'"  id="channel_head">
-                    <button (click)='removeChannel(channel.id)' class='change_role'>
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
-                        </svg>
-                    </button>
-                </th>
-            </tr>
-            <tr *ngFor="let channel_user of channel_users | keyvalue">
-                <div *ngFor="let user of channel_user.value">
-                    <div *ngIf='channel_user.key == channel.id'>
-                        <!-- THIS IS A USER NOT CHANNEL_USER -->
-                        <td class='table_user'>{{user.username}}</td>
-                        <td>
-                            <button (click)='removeUser(channel.id, user.username)' class='change_role'>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-                                  </svg>
-                            </button>
-                        </td>
-                        <td>
-                            <button routerLink='/changeRole/{{user.username}}' class='change_role'>
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrows-expand" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8zM7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10z"/>
-                                </svg>
-                            </button>
-                        </td>
-                    </div>
-                </div>
-            </tr>
-        </table>
     </div>
   </div>
   

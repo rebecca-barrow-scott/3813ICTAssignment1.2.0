@@ -7,5 +7,5 @@ module.exports = function(req,res){
         if (err) throw err;
         data = {"channelUsers": data};
         res.send(data);
-        }); 
+    }); 
 }

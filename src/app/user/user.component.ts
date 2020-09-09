@@ -61,17 +61,22 @@ export class UserComponent implements OnInit {
   }
 
   createChannel(id){
-    var name = prompt("Please enter a channel name");
-    this.channelobj.name = name
-    this.channelobj.group_id = id
-    this.httpClient.post(BACKEND_URL + '/createChannel', this.channelobj, httpOptions)
-    .subscribe((data: any) => {
-      if (data.feedback == null){
-        window.location.reload();
-      } else {
-        this.feedback = data.feedback
-      }
-    });
+    if(this.user.role == "Super Admin" || this.user.role == "Group Admin"){
+      var name = prompt("Please enter a channel name");
+      this.channelobj.name = name
+      this.channelobj.group_id = id
+      this.httpClient.post(BACKEND_URL + '/createChannel', this.channelobj, httpOptions)
+      .subscribe((data: any) => {
+        if (data.feedback == null){
+          window.location.reload();
+        } else {
+          this.feedback = data.feedback
+        }
+      });
+    } else {
+      alert("Incorrect permission")
+    }
+    
   }
   getChannelUsers(){
     this.httpClient.post(BACKEND_URL + '/getChannelUsers', this.userobj, httpOptions)

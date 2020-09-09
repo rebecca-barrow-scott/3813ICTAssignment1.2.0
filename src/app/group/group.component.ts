@@ -37,16 +37,12 @@ export class GroupComponent implements OnInit {
     this.user = JSON.parse(this.userService.getUser());
     if(this.user == undefined){
       this.router.navigateByUrl('/');
-    }
-    if(this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
+    } else {
       this.id = {"id": this.route.snapshot.params.id};
       this.getGroups()
       this.getGroupChannels()
       this.getUsers()
-    } else {
-      this.router.navigateByUrl('user');
     }
-    
   }
   getGroups(){
     this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)
@@ -94,9 +90,12 @@ export class GroupComponent implements OnInit {
       for(let item of this.all_channel_users){
         if(user.username == item.user_id){
           if(item.channel_id in channel_users){
-            channel_users[item.channel_id].push(user)
+            channel_users[item.channel_id].push(item)
+            if(item.user_id == this.user.username){
+              this.user.role = item.role
+            }
           } else {
-           channel_users[item.channel_id] = [user]
+           channel_users[item.channel_id] = [item]
           }
         }
       }

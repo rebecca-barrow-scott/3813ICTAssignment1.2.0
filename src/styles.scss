@@ -330,9 +330,32 @@ table{
 
 }
 .div_table{
-    border-bottom: 1px solid red;
     width: 100%;
 }
 .member_form{
     padding-top:20px;
+}
+#list_title{
+    border-bottom:none;
+    font-weight: bold
+}
+#list_title a{
+    border-bottom:none;
+    font-weight: bold;
+    color: whitesmoke;
+}
+#list_title a:hover{
+    text-decoration: none;
+    font-weight: bold;
+    color: rgb(43, 104, 184);
+}
+
+.channel_trash{
+    background-color: rgba(0,0,0,0);
+    outline:none;
+    border:none;
+    color: whitesmoke;
+}
+.channel_trash:hover{
+    color: red;
 }

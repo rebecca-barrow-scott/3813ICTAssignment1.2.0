@@ -1,11 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
-  constructor() { }
+  url = 'http://localhost:3000/';
+  constructor(private http: HttpClient) { }
 
   setUser(user){
    var JSONusers_array = ""
@@ -17,5 +18,12 @@ export class UserService {
   }
   logout(){
     localStorage.removeItem("user");
+  }
+
+  authUser(user){
+    return this.http.post<any>(this.url + 'api/auth', user);
+  }
+  setUserCollection(){
+    return this.http.get<any>(this.url + 'setUserCollection');
   }
 }

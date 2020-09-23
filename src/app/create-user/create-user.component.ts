@@ -41,14 +41,18 @@ export class CreateUserComponent implements OnInit {
     this.userobj.password = this.password
     this.userobj.confirm_password = this.confirm_password
 
-    this.httpClient.post(BACKEND_URL + '/createUser', this.userobj, httpOptions)
-    .subscribe((data: any) => {
+    this.userService.validateUser(this.userobj).subscribe((data)=>{
       if (data.feedback == null){
-        this.router.navigateByUrl('allUser');
+        this.userService.createUser(this.userobj).subscribe((data)=>{
+          if(data.feedback == null){
+            this.router.navigateByUrl('allUser');
+          } else {
+            this.feedback = data.feedback;
+          }
+        });
       } else {
-        this.feedback = data.feedback
+        this.feedback = data.feedback;
       }
     });
   }
-
 }

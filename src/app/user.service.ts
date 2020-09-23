@@ -32,4 +32,10 @@ export class UserService {
   deleteAllUsers(){
     return this.http.get<any>(this.url + 'deleteAllUsers');
   }
+  validateUser(user){
+    return this.http.post<any>(this.url + 'validateUser', user);
+  }
+  createUser(user){
+    return this.http.post<any>(this.url + 'createUser', user);
+  }
 }

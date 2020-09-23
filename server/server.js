@@ -21,6 +21,8 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/setUserCollection')(db, app);
     require('./router/getAllUsers')(db, app);
     require('./router/deleteAllUsers')(db, app);
+    require('./router/validateUser')(db, app);
+    require('./router/createUser')(db, app);
 
     let server = http.listen(3000, function () {
     let host = server.address().address;

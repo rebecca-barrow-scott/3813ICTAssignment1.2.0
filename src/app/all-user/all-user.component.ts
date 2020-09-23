@@ -32,13 +32,17 @@ export class AllUserComponent implements OnInit {
       this.router.navigateByUrl('user');
     }
     if(this.current_user.role == 'Super Admin' || this.current_user.role == 'Group Admin'){
-      this.httpClient.post(BACKEND_URL + '/getUsers', this.userobj, httpOptions)
-      .subscribe((data: any) => {
-          this.all_users = data
+      this.userService.getAllUsers().subscribe((data)=>{
+        if (data.feedback == null ){
+          this.all_users = data.users
           this.super_users = this.filter_users('Super Admin')
           this.group_admin = this.filter_users('Group Admin');
           this.users = this.filter_users('User');
-      });
+        } else {
+          alert("Database Error");
+          this.router.navigateByUrl('login');
+        }
+      })
     } else {
       this.router.navigateByUrl('user');
     }

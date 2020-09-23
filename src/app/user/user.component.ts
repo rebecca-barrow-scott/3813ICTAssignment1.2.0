@@ -102,4 +102,12 @@ export class UserComponent implements OnInit {
     }
     return refined_channels
   }
+
+  resetUserCollection(){
+    this.userService.setUserCollection().subscribe(data => {
+      this.logout();
+      window.location.reload();
+    });
+
+  }
 }

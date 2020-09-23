@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
   
   ngOnInit(): void {
-    //this.userService.setUserCollection().subscribe(data => {});
     this.user = JSON.parse(this.userService.getUser());
     if(this.user != undefined){
       this.router.navigateByUrl('user');
@@ -45,15 +44,5 @@ export class LoginComponent implements OnInit {
         this.feedback = data.feedback
       }
     })
-
-    // this.httpClient.post(BACKEND_URL + '/api/auth', this.userobj, httpOptions)
-    // .subscribe((data: any) => {
-    //   if (data.valid){
-    //     this.userService.setUser({"username": data.username, "email": data.email, "role": data.role});
-    //     this.router.navigateByUrl('user');
-    //   } else {
-    //     this.feedback = "Sorry, email or password is wrong."
-    //   }
-    // });
   }
 }

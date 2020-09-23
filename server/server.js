@@ -19,6 +19,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     const db = client.db(dbName);
     require('./router/apiAuth')(db, app);
     require('./router/setUserCollection')(db, app);
+    require('./router/getAllUsers')(db, app);
 
     let server = http.listen(3000, function () {
     let host = server.address().address;
@@ -29,7 +30,6 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
 });
 
 
-// app.post('/api/auth', require('./router/apiAuth'));
 // app.post('/getUsers', require('./router/getUSers'));
 // app.post('/createUser', require('./router/createUser'));
 // app.post('/changeRole', require('./router/changeRole'));

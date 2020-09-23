@@ -26,4 +26,7 @@ export class UserService {
   setUserCollection(){
     return this.http.get<any>(this.url + 'setUserCollection');
   }
+  getAllUsers(){
+    return this.http.get<any>(this.url + 'getAllUsers');
+  }
 }

@@ -4,7 +4,10 @@ var path = require('path');
 var cors = require('cors');
 var app = express();
 var http = require('http').Server(app);
+const MongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 
+const url = 'mongodb://localhost:27017';
 app.use(express.static(path.join(__dirname, '../dist/chattyapp/')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));

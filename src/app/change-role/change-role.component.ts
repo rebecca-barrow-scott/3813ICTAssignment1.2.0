@@ -39,8 +39,7 @@ export class ChangeRoleComponent implements OnInit {
     this.userobj.username = this.username
     this.userobj.role = this.role
 
-    this.httpClient.post(BACKEND_URL + '/changeRole', this.userobj, httpOptions)
-    .subscribe((data: any) => {
+    this.userService.changeUserRole(this.userobj).subscribe((data)=>{
       if (data.feedback == null){
         this.router.navigateByUrl('allUser');
       } else {

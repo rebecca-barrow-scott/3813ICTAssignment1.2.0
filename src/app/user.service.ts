@@ -38,4 +38,7 @@ export class UserService {
   createUser(user){
     return this.http.post<any>(this.url + 'createUser', user);
   }
+  changeUserRole(user){
+    return this.http.post<any>(this.url + 'changeUserRole', user);
+  }
 }

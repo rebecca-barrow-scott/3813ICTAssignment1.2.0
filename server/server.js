@@ -20,6 +20,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/apiAuth')(db, app);
     require('./router/setUserCollection')(db, app);
     require('./router/getAllUsers')(db, app);
+    require('./router/deleteAllUsers')(db, app);
 
     let server = http.listen(3000, function () {
     let host = server.address().address;
@@ -28,9 +29,6 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     console.log('Access it here: http://localhost:3000/');
     });
 });
-
-
-// app.post('/getUsers', require('./router/getUSers'));
 // app.post('/createUser', require('./router/createUser'));
 // app.post('/changeRole', require('./router/changeRole'));
 // app.post('/deleteUsers', require('./router/deleteUsers'));

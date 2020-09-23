@@ -59,10 +59,8 @@ export class AllUserComponent implements OnInit {
   deleteAll(){
     let valid = confirm('Are you sure you want to delete all users?');
     if (valid){
-      this.httpClient.post(BACKEND_URL + '/deleteUsers', this.userobj, httpOptions)
-      .subscribe((data: any) => {
-        window.location.reload();
-      });
+     this.userService.deleteAllUsers().subscribe((data)=>{});
+     window.location.reload();
     }
   }
 

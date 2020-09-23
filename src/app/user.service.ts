@@ -29,4 +29,7 @@ export class UserService {
   getAllUsers(){
     return this.http.get<any>(this.url + 'getAllUsers');
   }
+  deleteAllUsers(){
+    return this.http.get<any>(this.url + 'deleteAllUsers');
+  }
 }

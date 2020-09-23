@@ -32,6 +32,8 @@ export class UserComponent implements OnInit {
   all_channel_users:any;
   channel_users:any;
   channels:any;
+  groups:any;
+  userChannels:any;
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
 
   ngOnInit(): void {
@@ -41,22 +43,9 @@ export class UserComponent implements OnInit {
     } else {
       this.username = this.user.username
       this.role = this.user.role
-  
-      //FOR SIDE PANEL
-        // this.httpClient.post(BACKEND_URL + '/getGroups', this.userobj, httpOptions)
-        // .subscribe((data: any) => {
-        //   if(data.feedback == null){
-        //     this.group_array = JSON.parse(data.groups);
-        //     this.channel_array = JSON.parse(data.channels);
-        //     if(this.user.role == "Super Admin" || this.user.role == "Group Admin" ){
-        //       this.channels = this.channel_array
-        //     } else {
-        //       this.getChannelUsers()
-        //     }
-        //   } else {
-        //     this.feedback = data.feedback;
-        //   }
-        // });
+      this.groups = JSON.parse(this.groupService.getLocalGroups());
+      this.channels = JSON.parse(this.channelService.getLocalChannels());
+      this.userChannels = JSON.parse(this.userChannelService.getLocalUserChannels());
     }
   }
   logout(){
@@ -79,15 +68,6 @@ export class UserComponent implements OnInit {
   //   } else {
   //     alert("Incorrect permission")
   //   }
-    
-  // }
-  // getChannelUsers(){
-  //   this.httpClient.post(BACKEND_URL + '/getChannelUsers', this.userobj, httpOptions)
-  //     .subscribe((data: any) => {
-  //         this.all_channel_users = JSON.parse(data.channelUsers)
-  //         this.channels = this.sortChannels()
-  //     });
-  // }
   sortChannels(){
     var channels = []
     var refined_channels = []

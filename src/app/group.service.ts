@@ -10,6 +10,9 @@ export class GroupService {
   setLocalGroups(groups){
     localStorage.setItem("groups", JSON.stringify(groups));
   }
+  getLocalGroups(){
+    return localStorage.getItem("groups");
+  }
   setGroupCollection(){
     return this.http.get<any>(this.url + 'setGroupCollection');
   }

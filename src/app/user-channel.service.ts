@@ -10,6 +10,9 @@ export class UserChannelService {
   setLocalUserChannels(userChannels){
     localStorage.setItem("userChannels", JSON.stringify(userChannels));
   }
+  getLocalUserChannels(){
+    return localStorage.getItem("userChannels");
+  }
   setUserChannelCollection(){
     return this.http.get<any>(this.url + 'setUserChannelCollection');
   }

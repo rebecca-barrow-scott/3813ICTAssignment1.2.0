@@ -1,7 +1,7 @@
 <div class='col-3 float-left' id='groupPanel'>
     <h5 id='profile_link'><a routerLink='/user'>Profile</a></h5>
     <h5 id='new_group_link'><a routerLink='/createGroup'>New Group </a></h5>
-    <div *ngFor='let group of group_array'>
+    <div *ngFor='let group of groups'>
         <div class='row'>
             <div class='col-9' id='group_name'>
                 <a routerLink='/group/{{group.id}}'>{{group.name}}</a>
@@ -14,12 +14,22 @@
                 </button>
             </div>
         </div>
-        
-        <div *ngFor='let channel of channels' class="channel_name">
-            <div *ngIf='group.id == channel.group_id'>
-                <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
+        <div *ngIf='role == "Super Admin" || role == "Group Admin"; else elseBlock'>
+            <div *ngFor='let channel of channels' class="channel_name">
+                <div *ngIf='group.id == channel.group_id'>
+                    <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
+                </div>
             </div>
         </div>
+        <ng-template #elseBlock>
+            <div *ngFor='let userChannel of userChannels' >
+                <div *ngFor='let channel of channels' class="channel_name">
+                    <div *ngIf='group.id == channel.group_id && channel.id == userChannel.channel_id'>
+                        <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
     </div>
     <img src="../assets/images/kook2.png" class='kook-img'>
 </div>
@@ -44,21 +54,13 @@
                 </button>
             </div>
         </div>
-        <div class='row' id='profile-ability' *ngIf='role == "Super Admin" || role == "Group Admin"'>
+        <div class='row' id='profile-ability'>
             <ul>
-                <li><a routerLink='/allUser' class="manage_link">Manage Users</a></li>
-            </ul>
-            <ul>
-                <li><a (click)="resetUserCollection()" class="manage_link" style="cursor: pointer;">Reset Users</a></li>
-            </ul>
-            <ul>
-                <li><a (click)="resetGroupCollection()" class="manage_link" style="cursor: pointer;">Reset Groups</a></li>
-            </ul>
-            <ul>
-                <li><a (click)="resetUserChannelCollection()" class="manage_link" style="cursor: pointer;">Reset User Channels</a></li>
-            </ul>
-            <ul>
-                <li><a (click)="resetChannelCollection()" class="manage_link" style="cursor: pointer;">Reset Channels</a></li>
+                <li *ngIf='role == "Super Admin" || role == "Group Admin"'><a routerLink='/allUser' class="manage_link">Manage Users</a></li>
+                <li *ngIf='role == "Super Admin"'><a (click)="resetUserCollection()" class="manage_link" style="cursor: pointer;">Reset Users</a></li>
+                <li *ngIf='role == "Super Admin"'><a (click)="resetGroupCollection()" class="manage_link" style="cursor: pointer;">Reset Groups</a></li>
+                <li *ngIf='role == "Super Admin"'><a (click)="resetUserChannelCollection()" class="manage_link" style="cursor: pointer;">Reset User Channels</a></li>
+                <li *ngIf='role == "Super Admin"'><a (click)="resetChannelCollection()" class="manage_link" style="cursor: pointer;">Reset Channels</a></li>
             </ul>
         </div>
     </div>

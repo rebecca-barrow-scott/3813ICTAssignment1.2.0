@@ -11,6 +11,9 @@ export class ChannelService {
   setLocalChannels(channels){
     localStorage.setItem("channels", JSON.stringify(channels));
   }
+  getLocalChannels(){
+    return localStorage.getItem("channels");
+  }
   setChannelCollection(){
     return this.http.get<any>(this.url + 'setChannelCollection');
   }

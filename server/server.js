@@ -17,6 +17,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     if (err) {return console.log(err)}
     const dbName = "mydb";
     const db = client.db(dbName);
+    // USER
     require('./router/apiAuth')(db, app);
     require('./router/setUserCollection')(db, app);
     require('./router/getAllUsers')(db, app);
@@ -24,6 +25,19 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/validateUser')(db, app);
     require('./router/createUser')(db, app);
     require('./router/changeUserRole')(db, app);
+    
+    // GROUP
+    require('./router/setGroupCollection')(db, app);
+    require('./router/getGroups')(db, app);
+
+    // CHANNEL
+    require('./router/setChannelCollection')(db, app);
+    require('./router/getChannels')(db, app);
+
+    // USERCHANNEL
+    require('./router/setUserChannelCollection')(db, app);
+    require('./router/getUserChannels')(db, app);
+    
 
     let server = http.listen(3000, function () {
     let host = server.address().address;
@@ -32,7 +46,6 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     console.log('Access it here: http://localhost:3000/');
     });
 });
-// app.post('/getGroups', require('./router/getGroups'));
 // app.post('/searchUser', require('./router/searchUser'));
 // app.post('/getChannel', require('./router/getChannel'));
 // app.post('/addUserChannel', require('./router/addUserChannel'));

@@ -1,11 +1,11 @@
 module.exports = function(db, app){
     app.get('/setUserCollection', function(req, res){
-        var users = [{username: "Super", email: "super@gmail.com", role: "Super Admin", password: "123", confirm_password: "123"},
-                     {username: "John", email: "john@gmail.com", role: "Group Admin", password: "123", confirm_password: "123"},
-                     {username: "Kyle", email: "kyle@gmail.com", role: "Group Admin", password: "123", confirm_password: "123"},
-                     {username: "Emma", email: "emma@gmail.com", role: "User", password: "123", confirm_password: "123"},
-                     {username: "Mary", email: "mary@gmail.com", role: "User", password: "123", confirm_password: "123"},
-                     {username: "rebecca", email: "rebecca@gmail.com", role: "User", password: "123", confirm_password: "123"}]
+        var users = [{"username":"Super","email":"super@gmail.com","password":"super","role":"Super Admin"},
+                     {"username":"John","email":"john@gmail.com","password":"123","role":"Group Admin"},
+                     {"username":"Rachel","email":"rachel@gmail.com","password":"123","role":"Group Admin"},
+                     {"username":"Kyle","email":"kyle@gmail.com","password":"123","role":"Group Assit Admin"},
+                     {"username":"Emma","email":"emma@gmail.com","password":"123","role":"User"},
+                     {"username":"Mary","email":"mary@gmail.com","password":"123","role":"User"}]
         
         db.collection('users').deleteMany({}, function(err, result){
             if (err) throw err;

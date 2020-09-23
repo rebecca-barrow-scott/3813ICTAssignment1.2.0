@@ -18,6 +18,9 @@ export class UserService {
   }
   logout(){
     localStorage.removeItem("user");
+    localStorage.removeItem("groups");
+    localStorage.removeItem("channels");
+    localStorage.removeItem("userChannels");
   }
 
   authUser(user){

@@ -19,4 +19,10 @@ export class GroupService {
   getGroups(){
     return this.http.get<any>(this.url + 'getGroups');
   }
+  createGroup(group){
+    return this.http.post<any>(this.url + 'createGroup', group);
+  }
+  validateGroup(group){
+    return this.http.post<any>(this.url + 'validateGroup', group);
+  }
 }

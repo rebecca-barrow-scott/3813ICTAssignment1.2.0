@@ -29,10 +29,14 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     // GROUP
     require('./router/setGroupCollection')(db, app);
     require('./router/getGroups')(db, app);
+    require('./router/createGroup')(db, app);
+    require('./router/validateGroup')(db, app);
 
     // CHANNEL
     require('./router/setChannelCollection')(db, app);
     require('./router/getChannels')(db, app);
+    require('./router/createChannel')(db, app);
+    require('./router/validateChannel')(db, app);
 
     // USERCHANNEL
     require('./router/setUserChannelCollection')(db, app);
@@ -47,11 +51,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     });
 });
 // app.post('/searchUser', require('./router/searchUser'));
-// app.post('/getChannel', require('./router/getChannel'));
 // app.post('/addUserChannel', require('./router/addUserChannel'));
-// app.post('/getChannelUsers', require('./router/getChannelUsers'));
-// app.post('/createGroup', require('./router/createGroup'));
-// app.post('/createChannel', require('./router/createChannel'));
 // app.post('/removeChannelUser', require('./router/removeChannelUser'));
 // app.post('/removeChannel', require('./router/removeChannel'));
 // app.post('/removeGroup', require('./router/removeGroup'));

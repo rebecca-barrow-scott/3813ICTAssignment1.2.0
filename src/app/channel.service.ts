@@ -20,4 +20,10 @@ export class ChannelService {
   getChannels(){
     return this.http.get<any>(this.url + 'getChannels');
   }
+  createChannel(channel){
+    return this.http.post<any>(this.url + 'createChannel', channel)
+  }
+  validateChannel(channel){
+    return this.http.post<any>(this.url + 'validateChannel', channel)
+  }
 }

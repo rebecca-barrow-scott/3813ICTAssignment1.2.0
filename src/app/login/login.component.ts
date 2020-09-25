@@ -47,6 +47,11 @@ export class LoginComponent implements OnInit {
             this.groupService.setLocalGroups(data.groups);
           }
         });
+        this.groupService.getGroupAssists().subscribe((data)=>{
+          if (data.feedback == null){
+            this.groupService.setLocalGroupAssists(data.groupAssists);
+          }
+        });
         this.userChannelService.getUserChannels(data.user).subscribe((data)=>{
           if (data.feedback == null){
             this.userChannelService.setLocalUserChannels(data.userChannels);

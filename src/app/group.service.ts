@@ -10,8 +10,14 @@ export class GroupService {
   setLocalGroups(groups){
     localStorage.setItem("groups", JSON.stringify(groups));
   }
+  setLocalGroupAssists(groupAssists){
+    localStorage.setItem("groupAssists", JSON.stringify(groupAssists));
+  }
   getLocalGroups(){
     return localStorage.getItem("groups");
+  }
+  getLocalGroupAssists(){
+    return localStorage.getItem("groupAssists");
   }
   setGroupCollection(){
     return this.http.get<any>(this.url + 'setGroupCollection');
@@ -21,6 +27,9 @@ export class GroupService {
   }
   getGroups(){
     return this.http.get<any>(this.url + 'getGroups');
+  }
+  getGroupAssists(){
+    return this.http.get<any>(this.url + 'getGroupAssists');
   }
   createGroup(group){
     return this.http.post<any>(this.url + 'createGroup', group);

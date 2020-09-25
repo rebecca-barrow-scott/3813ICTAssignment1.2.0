@@ -31,6 +31,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/setGroupCollection')(db, app);
     require('./router/setGroupAssistCollection')(db, app);
     require('./router/getGroups')(db, app);
+    require('./router/getGroupAssists')(db, app);
     require('./router/createGroup')(db, app);
     require('./router/validateGroup')(db, app);
     require('./router/getGroup')(db, app);

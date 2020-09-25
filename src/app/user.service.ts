@@ -21,6 +21,7 @@ export class UserService {
     localStorage.removeItem("groups");
     localStorage.removeItem("channels");
     localStorage.removeItem("userChannels");
+    localStorage.removeItem("groupAssists");
   }
 
   authUser(user){

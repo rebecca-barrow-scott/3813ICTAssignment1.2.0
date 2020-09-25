@@ -57,11 +57,20 @@
         <div class='row' id='profile-ability'>
             <ul>
                 <li *ngIf='role == "Super Admin" || role == "Group Admin"'><a routerLink='/allUser' class="manage_link">Manage Users</a></li>
-                <li *ngIf='role == "Super Admin"'><a (click)="resetUserCollection()" class="manage_link" style="cursor: pointer;">Reset Users</a></li>
-                <li *ngIf='role == "Super Admin"'><a (click)="resetGroupCollection()" class="manage_link" style="cursor: pointer;">Reset Groups</a></li>
-                <li *ngIf='role == "Super Admin"'><a (click)="resetUserChannelCollection()" class="manage_link" style="cursor: pointer;">Reset User Channels</a></li>
-                <li *ngIf='role == "Super Admin"'><a (click)="resetChannelCollection()" class="manage_link" style="cursor: pointer;">Reset Channels</a></li>
-                <li *ngIf='role == "Super Admin"'><a (click)="resetDatabase()" class="manage_link" style="cursor: pointer;">Reset Database</a></li>
+                <br>
+                <div class='row'>
+                    <div class='col-lg-6'>
+                        <li *ngIf='role == "Super Admin"'><a (click)="resetUserCollection()" class="manage_link" style="cursor: pointer;">Reset Users</a></li>
+                        <li *ngIf='role == "Super Admin"'><a (click)="resetGroupCollection()" class="manage_link" style="cursor: pointer;">Reset Groups</a></li>
+                        <li *ngIf='role == "Super Admin"'><a (click)="resetChannelCollection()" class="manage_link" style="cursor: pointer;">Reset Channels</a></li>
+                    </div>
+                    <div class='col-lg-6'>
+                        <li *ngIf='role == "Super Admin"'><a (click)="resetUserChannelCollection()" class="manage_link" style="cursor: pointer;">Reset User Channels</a></li>
+                        <li *ngIf='role == "Super Admin"'><a (click)="resetGroupAssistCollection()" class="manage_link" style="cursor: pointer;">Reset Group Assists</a></li>
+                        <li *ngIf='role == "Super Admin"'><a (click)="resetDatabase()" class="manage_link" style="cursor: pointer;">Reset Database</a></li>
+                    </div>
+                </div>
+                
             </ul>
         </div>
     </div>

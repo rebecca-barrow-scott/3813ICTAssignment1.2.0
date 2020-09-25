@@ -95,20 +95,36 @@ export class GroupComponent implements OnInit {
     }
     return gcdict
   }
-  removeChannel(id){
-    this.channelobj.id = id
-    this.userChannelService.removeChannel(this.channelobj).subscribe((data)=>{
-      if (data.feedback == null){
-        this.userChannelService.setLocalUserChannels(data.userChannels)
-        this.channelService.deleteChannel(this.channelobj).subscribe((data)=>{
-          if(data.feedback == null){
-            this.channelService.setLocalChannels(data.channels);
-            window.location.reload();
-          }
-        })
-      }
-    })
-    
+  removeChannel(id, name){
+    if(confirm("Are you sure you would like to delete " + name + "?")){
+      this.channelobj.id = id
+      this.userChannelService.removeChannel(this.channelobj).subscribe((data)=>{
+        if (data.feedback == null){
+          this.userChannelService.setLocalUserChannels(data.userChannels)
+          this.channelService.deleteChannel(this.channelobj).subscribe((data)=>{
+            if(data.feedback == null){
+              this.channelService.setLocalChannels(data.channels);
+              window.location.reload();
+            }
+          })
+        }
+      })
+    }
+  }
+  deleteGroup(){
+    if(confirm("Are you sure you would like to delete " + this.currentGroup.name + "?")){
+      this.groupService.removeGroup(this.groupobj).subscribe((data)=>{
+        if (data.feedback == null){
+          this.groupService.setLocalGroupAssists(data.groupAssists)
+          this.groupService.deleteGroup(this.groupobj).subscribe((data)=>{
+            if (data.feedback == null){
+              this.groupService.setLocalGroups(data.groups);
+              this.router.navigateByUrl('user');
+            }
+          })
+        }
+      })
+    }
   }
 
   // getGroups(){

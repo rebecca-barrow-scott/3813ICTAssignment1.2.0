@@ -40,4 +40,10 @@ export class GroupService {
   getGroup(id){
     return this.http.post<any>(this.url + 'getGroup', id);
   }
+  deleteGroup(group){
+    return this.http.post<any>(this.url + 'deleteGroup', group);
+  }
+  removeGroup(group){
+    return this.http.post<any>(this.url + 'removeGroup', group)
+  }
 }

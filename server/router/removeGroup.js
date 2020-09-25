@@ -1,21 +1,11 @@
-var fs = require('fs');
-module.exports = function(req,res){
-    var group = {
-        'id': req.body.group_id
-    }
-    fs.readFile('../server/data/group.json', 'utf-8', function(err, data){
-        if (err) throw err;
-        group_array = JSON.parse(data);
-        for (g of group_array){
-            if (group.id == g.id){
-                g.id = null
-                g.name = null
-            }
-        }
-        new_data = JSON.stringify(group_array);
-        fs.writeFile('../server/data/group.json', new_data, 'utf-8', function(err){
+module.exports = function(db, app){
+    app.post('/removeGroup', function(req, res){
+        console.log("groupassist"+ req.body.id)
+        db.collection('groupAssists').deleteMany({group_id: parseInt(req.body.id)}, function(err, result){
             if (err) throw err;
+            db.collection('groupAssists').find({}).toArray().then(function(groupAssists){
+                res.send({'feedback': null, 'groupAssists': groupAssists})
+            })
         });
-    });  
-    res.send(JSON.parse('{"feedback": null}'));
+    });
 }

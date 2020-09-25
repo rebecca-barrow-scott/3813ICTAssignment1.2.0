@@ -16,6 +16,9 @@ export class GroupService {
   setGroupCollection(){
     return this.http.get<any>(this.url + 'setGroupCollection');
   }
+  setGroupAssistCollection(){
+    return this.http.get<any>(this.url + 'setGroupAssistCollection');
+  }
   getGroups(){
     return this.http.get<any>(this.url + 'getGroups');
   }

@@ -110,4 +110,17 @@ export class UserComponent implements OnInit {
       window.location.reload();
     });
   }
+  resetGroupAssistCollection(){
+    this.groupService.setGroupAssistCollection().subscribe(data => {
+      this.logout();
+      window.location.reload();
+    });
+  }
+  resetDatabase(){
+    this.resetChannelCollection()
+    this.resetGroupCollection()
+    this.resetUserChannelCollection()
+    this.resetUserCollection()
+    this.resetGroupAssistCollection()
+  }
 }

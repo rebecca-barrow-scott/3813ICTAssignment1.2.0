@@ -17,6 +17,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     if (err) {return console.log(err)}
     const dbName = "mydb";
     const db = client.db(dbName);
+
     // USER
     require('./router/apiAuth')(db, app);
     require('./router/setUserCollection')(db, app);
@@ -28,6 +29,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     
     // GROUP
     require('./router/setGroupCollection')(db, app);
+    require('./router/setGroupAssistCollection')(db, app);
     require('./router/getGroups')(db, app);
     require('./router/createGroup')(db, app);
     require('./router/validateGroup')(db, app);

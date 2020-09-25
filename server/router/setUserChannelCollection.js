@@ -1,9 +1,14 @@
 module.exports = function(db, app){
     app.get('/setUserChannelCollection', function(req, res){
-        var userChannels = [{"channel_id":2,"user_id":"Mary","role":"Group Assist Admin"},
-                            {"channel_id":3,"user_id":"Emma","role":"Member"},
-                            {"channel_id":3,"user_id":"Lucy","role":"Group Assist Admin"},
-                            {"channel_id":1,"user_id":"Emma","role":"Member"}]
+        var userChannels = [{"channel_id":2,"user_id":"Mary"},
+                            {"channel_id":3,"user_id":"Emma"},
+                            {"channel_id":3,"user_id":"Lucy"},
+                            {"channel_id":1,"user_id":"Emma"},
+                            {"channel_id":1,"user_id":"Rebecca"},
+                            {"channel_id":2,"user_id":"Rebecca"},
+                            {"channel_id":3,"user_id":"Rebecca"},
+                            {"channel_id":1,"user_id":"Mike"},
+                            {"channel_id":2,"user_id":"Mike"}]
         
         db.collection('userChannels').deleteMany({}, function(err, result){
             if (err) throw err;

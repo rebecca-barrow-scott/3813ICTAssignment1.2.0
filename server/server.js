@@ -41,10 +41,12 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/getChannels')(db, app);
     require('./router/createChannel')(db, app);
     require('./router/validateChannel')(db, app);
+    require('./router/deleteChannel')(db, app);
 
     // USERCHANNEL
     require('./router/setUserChannelCollection')(db, app);
     require('./router/getUserChannels')(db, app);
+    require('./router/removeChannel')(db,app);
     
 
     let server = http.listen(3000, function () {

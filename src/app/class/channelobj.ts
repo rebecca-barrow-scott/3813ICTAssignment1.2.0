@@ -1,5 +1,5 @@
 export class ChannelObj{
-    _id:any
+    id:any
     name:string
     group_id:any
 }

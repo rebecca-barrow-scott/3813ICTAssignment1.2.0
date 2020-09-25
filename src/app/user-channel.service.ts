@@ -14,9 +14,12 @@ export class UserChannelService {
     return localStorage.getItem("userChannels");
   }
   setUserChannelCollection(){
-    return this.http.get<any>(this.url + 'setUserChannelCollection');
+    return this.http.get<any>(this.url + 'userChannel/setUserChannelCollection');
   }
   getUserChannels(user){
-    return this.http.post<any>(this.url + 'getUserChannels', user);
+    return this.http.post<any>(this.url + 'userChannel/getUserChannels', user);
+  }
+  removeChannel(channel){
+    return this.http.post<any>(this.url + 'userChannel/removeChannel', channel);
   }
 }

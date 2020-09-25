@@ -34,6 +34,7 @@ export class GroupComponent implements OnInit {
   groupobj = new GroupObj();
   users:any;
   groupAssists:any;
+  channelobj = new ChannelObj();
 
 
   // userGroupObj = new UserGroupObj()
@@ -52,7 +53,7 @@ export class GroupComponent implements OnInit {
   // group_array2:any
   // channel_array2:any
   // channels2:any
-  // channelobj = new ChannelObj();
+  // 
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
 
   ngOnInit(): void {
@@ -93,6 +94,21 @@ export class GroupComponent implements OnInit {
       }
     }
     return gcdict
+  }
+  removeChannel(id){
+    this.channelobj.id = id
+    this.userChannelService.removeChannel(this.channelobj).subscribe((data)=>{
+      if (data.feedback == null){
+        this.userChannelService.setLocalUserChannels(data.userChannels)
+        this.channelService.deleteChannel(this.channelobj).subscribe((data)=>{
+          if(data.feedback == null){
+            this.channelService.setLocalChannels(data.channels);
+            window.location.reload();
+          }
+        })
+      }
+    })
+    
   }
 
   // getGroups(){

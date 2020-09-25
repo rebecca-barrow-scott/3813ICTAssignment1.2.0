@@ -1,5 +1,5 @@
 module.exports = function(db, app){
-    app.get('/setUserChannelCollection', function(req, res){
+    app.get('/userChannel/setUserChannelCollection', function(req, res){
         var userChannels = [{"channel_id":2,"user_id":"Mary"},
                             {"channel_id":3,"user_id":"Emma"},
                             {"channel_id":3,"user_id":"Lucy"},

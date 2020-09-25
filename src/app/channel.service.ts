@@ -26,4 +26,7 @@ export class ChannelService {
   validateChannel(channel){
     return this.http.post<any>(this.url + 'validateChannel', channel)
   }
+  deleteChannel(channel){
+    return this.http.post<any>(this.url + 'deleteChannel', channel);
+  }
 }

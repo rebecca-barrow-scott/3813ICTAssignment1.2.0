@@ -6,12 +6,14 @@ var app = express();
 var http = require('http').Server(app);
 const MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
+const formidable = require('formidable')
 
 const url = 'mongodb://localhost:27017';
-app.use(express.static(path.join(__dirname, '../dist/chattyapp/')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(cors());
+app.use(express.static(path.join(__dirname, '../dist/chattyapp/')));
+app.use('/images', express.static(path.join(__dirname, './userimages')));
 
 MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopology: true}, function(err, client){
     if (err) {return console.log(err)}
@@ -26,6 +28,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/validateUser')(db, app);
     require('./router/createUser')(db, app);
     require('./router/changeUserRole')(db, app);
+    require('./router/imageUpload')(db, app, formidable);
     
     // GROUP
     require('./router/setGroupCollection')(db, app);

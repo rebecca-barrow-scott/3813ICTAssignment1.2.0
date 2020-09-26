@@ -45,4 +45,7 @@ export class UserService {
   changeUserRole(user){
     return this.http.post<any>(this.url + 'changeUserRole', user);
   }
+  uploadImage(fd){
+    return this.http.post<any>(this.url + 'imageUpload', fd);
+  }
 }

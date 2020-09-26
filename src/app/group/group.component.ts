@@ -12,7 +12,7 @@ const httpOptions = {
 import { UserGroupObj } from '../class/usergroupobj';
 import { UserObj } from '../class/userobj';
 import { ChannelUser } from '../class/channeluser';
-import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
+import { ChannelObj } from '../class/channelobj';
 import { GroupObj } from '../class/groupobj';
 
 const BACKEND_URL = 'http://localhost:3000';

@@ -9,10 +9,8 @@ import { UserChannelService } from '../user-channel.service';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-import { UserGroupObj } from '../class/usergroupobj';
 import { UserObj } from '../class/userobj';
 import { ChannelUser } from '../class/channeluser';
-import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
 import { GroupObj } from '../class/groupobj';
 
 const BACKEND_URL = 'http://localhost:3000';

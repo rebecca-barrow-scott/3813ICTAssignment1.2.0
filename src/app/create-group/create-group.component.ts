@@ -10,7 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 import { GroupObj } from '../class/groupobj';
-import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
+import { ChannelObj } from '../class/channelobj';
 const BACKEND_URL = 'http://localhost:3000';
 
 @Component({

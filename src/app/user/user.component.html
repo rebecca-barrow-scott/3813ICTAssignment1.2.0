@@ -39,11 +39,18 @@
     <div class='content'>
         <div class='row' id='profile-detail'>
             <div class='col-2 float-left'>
-                <img src="../assets/images/dots2.png" class='profile-img'>
+                <!-- <img src="../assets/images/dots2.png" class='profile-img'> -->
+                <img src='\images\{{imagepath}}' class='profile-img'>
             </div>
             <div class='col-8' id='profile-desc'>
                 <p class='name'><strong>{{username}}</strong></p>
                 <p>{{role}}</p>
+                <form>
+                    <div class="form-group">
+                        <input type='file' class='form-control' (change)="onFileSelected($event)" name='uploadFile' id='uploadFile'>
+                        <button class='btn btn-primary' type='button' (click)='onUpload()'>Submit</button>
+                    </div>
+                </form>
             </div>
             <div class='col-2 float right'>
                 <button (click)='logout()' class='logout-button' routerLink='/'>

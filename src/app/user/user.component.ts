@@ -10,7 +10,8 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 import { UserObj } from '../class/userobj';
-import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
+import { ChannelObj } from '../class/channelobj';
+import { formatDate } from '@angular/common';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -34,6 +35,8 @@ export class UserComponent implements OnInit {
   channels:any;
   groups:any;
   userChannels:any;
+  selectedFile = null;
+  imagepath='dots2.png'
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
 
   ngOnInit(): void {
@@ -122,5 +125,16 @@ export class UserComponent implements OnInit {
     this.resetUserChannelCollection()
     this.resetUserCollection()
     this.resetGroupAssistCollection()
+  }
+
+  onFileSelected(event){
+    this.selectedFile = event.target.files[0]
+  }
+  onUpload(){
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name);
+    this.userService.uploadImage(fd).subscribe((data)=>{
+      this.imagepath = data.data.filename
+    });
   }
 }

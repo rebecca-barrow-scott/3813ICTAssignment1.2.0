@@ -1,0 +1,24 @@
+<div class='col-3 float-left' id='groupPanel'>
+    <h5 id='profile_link'><a routerLink='/user'>Profile</a></h5>
+    <img src="../assets/images/kook2.png" class='kook-img'>
+  </div>
+  
+  <div class='col-9 float-right'>
+    <div class='content'>
+      <h3>Add User</h3>
+      <p class='elseBlock'>{{feedback}}</p>
+      <form>
+        <div class="form-group">
+            <label for="username">Add User</label><br>
+            <input type="text" name='username' [(ngModel)]="username" class="form-control" id="username"  placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="channel">Channel</label><br>
+            <select id='channel' name='channel' [(ngModel)]='channel'>
+                <option *ngFor='let groupChannel of groupChannels'>{{groupChannel.name}}</option>
+            </select>
+        </div>
+        <button type="submit" class="submit-button" (click)="searchUser()">Search</button>
+    </form>
+    </div>
+  </div>

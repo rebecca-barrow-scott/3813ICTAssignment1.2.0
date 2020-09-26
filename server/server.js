@@ -50,6 +50,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/setUserChannelCollection')(db, app);
     require('./router/getUserChannels')(db, app);
     require('./router/removeChannel')(db,app);
+    require('./router/addUserChannel')(db,app);
     
 
     let server = http.listen(3000, function () {
@@ -59,16 +60,5 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     console.log('Access it here: http://localhost:3000/');
     });
 });
-// app.post('/searchUser', require('./router/searchUser'));
-// app.post('/addUserChannel', require('./router/addUserChannel'));
 // app.post('/removeChannelUser', require('./router/removeChannelUser'));
-// app.post('/removeChannel', require('./router/removeChannel'));
-// app.post('/removeGroup', require('./router/removeGroup'));
 // app.post('/changeRoleGroup', require('./router/changeRoleGroup'));
-
-// let server = http.listen(3000, function () {
-//     let host = server.address().address;
-//     let port = server.address().port;
-//     console.log('Server listening on: '+ host + 'port:' + port);
-//     console.log('Access it here: http://localhost:3000/');
-// });

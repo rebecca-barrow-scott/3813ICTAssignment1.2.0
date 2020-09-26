@@ -21,7 +21,7 @@ module.exports = function(db, app){
         } else {
             db.collection('users').find({username: user.username}).toArray().then(function(user_username){
                 if (user_username.length != 0){
-                    res.send({"feedback": "Username is taken"});
+                    res.send({"feedback": "Username is taken", "user": user_username[0]});
                 } else {
                     db.collection('users').find({email: user.email}).toArray().then(function(user_email){
                         if (user_email.length != 0){

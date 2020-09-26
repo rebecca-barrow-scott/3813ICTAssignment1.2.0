@@ -10,7 +10,8 @@ module.exports = function(db, app){
                      {"username":"Amanda","email":"amanda@gmail.com","password":"123","role":"User"},
                      {"username":"Travis","email":"travis@gmail.com","password":"123","role":"User"},
                      {"username":"Mike","email":"mike@gmail.com","password":"123","role":"User"},
-                     {"username":"Sabrina","email":"sabrina@gmail.com","password":"123","role":"User"}]
+                     {"username":"Sabrina","email":"sabrina@gmail.com","password":"123","role":"User"},
+                     {"username":"Lucy","email":"lucy@gmail.com","password":"123","role":"User"}]
         
         db.collection('users').deleteMany({}, function(err, result){
             if (err) throw err;

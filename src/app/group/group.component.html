@@ -44,6 +44,9 @@
                     </svg>
             </button>
         </div>
+        <div class="row">
+            <h6 class="add_member" routerLink="/addUser/{{currentGroup.id}}">Add member +</h6>
+        </div>
 
         <ul>
             <li id='list_title'>
@@ -133,20 +136,7 @@
         </ul>
 
 
-        <form *ngIf="user.role != 'Member'" class="member_form">
-            <div class="form-group">
-                <label for="username">Add User</label><br>
-                <input type="text" name='username' [(ngModel)]="username" class="form-control" id="username"  placeholder="Username">
-            </div>
-            <div class="form-group">
-                <label for="channel">Channel</label><br>
-                <select id='channel' name='channel' [(ngModel)]='channel'>
-                    <option>Select Channel</option>
-                    <option *ngFor='let channel of channel_array'>{{channel.name}}</option>
-                </select>
-            </div>
-            <button type="submit" class="submit-button" (click)="searchUser()">Search</button>
-        </form> -->
+       -->
     </div>
   </div>
   

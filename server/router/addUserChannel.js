@@ -1,27 +1,19 @@
-var fs = require('fs');
-module.exports = function(req,res){
-    var channels = req.body.channels
-    var channel_ids = []
-    var userChannels = []
-    for(channel of channels){
-        channel_ids.push(channel.id)
-    }
-    for(id of channel_ids){
-        var userChannel ={
-            'channel_id': id,
-            'user_id': req.body.username,
-            'role': "Member"
-        }
-        userChannels.push(userChannel)
-    }
-    fs.readFile('../server/data/channelUsers.json', 'utf-8', function(err, data){
-        if (err) throw err;
-        userChannel_array = JSON.parse(data);
-        user_data = userChannel_array.concat(userChannels);
-        new_data = JSON.stringify(user_data);
-        fs.writeFile('../server/data/channelUsers.json', new_data, 'utf-8', function(err){
-            if (err) throw err;
+module.exports = function(db, app){
+    app.post('/addUserChannel', function(req, res){
+        db.collection('userChannels').find({channel_id: req.body.channel_id, user_id: req.body.user_id}).toArray().then(function(userChannels){
+            if (userChannels.length >= 1){
+                db.collection('userChannels').find({}).toArray().then(function(userChannels){
+                    res.send({"feedback": "User is already in channel", "userChannels": userChannels})
+                });
+            } else {
+                db.collection('userChannels').insertOne({channel_id: req.body.channel_id, user_id: req.body.user_id}, function(err, result){
+                    if (err) throw err;
+                    db.collection('userChannels').find({}).toArray().then(function(userChannels){
+                        res.send({"feedback": null, "userChannels": userChannels})
+                    });
+                });
+            }
+           
         });
-    });  
-    res.send({"feedback": null});
-}
+    });
+};

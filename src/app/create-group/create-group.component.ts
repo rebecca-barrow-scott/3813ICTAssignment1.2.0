@@ -60,7 +60,7 @@ export class CreateGroupComponent implements OnInit {
     this.channelobj.group_id = id
     this.channelService.validateChannel(this.channelobj).subscribe((data)=>{
       if (data.feedback == null){
-        this.channelobj._id = data.channel._id
+        this.channelobj.id = data.channel.id
         this.channelService.createChannel(this.channelobj).subscribe(data => {
           if (data.feedback == null){
             this.setLocalStorage()

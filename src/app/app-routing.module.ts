@@ -8,6 +8,7 @@ import { ChangeRoleComponent } from './change-role/change-role.component';
 import { ChannelComponent } from './channel/channel.component';
 import { GroupComponent } from './group/group.component';
 import { CreateGroupComponent} from './create-group/create-group.component';
+import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
   {path: 'user', component: UserComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'changeRole/:id', component: ChangeRoleComponent},
   {path: 'channel/:id', component: ChannelComponent},
   {path: 'group/:id', component: GroupComponent},
-  {path: 'createGroup', component: CreateGroupComponent}
+  {path: 'createGroup', component: CreateGroupComponent},
+  {path: 'addUser/:id', component: AddUserComponent}
 ];
 
 @NgModule({

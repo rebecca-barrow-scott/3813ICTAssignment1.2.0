@@ -22,4 +22,7 @@ export class UserChannelService {
   removeChannel(channel){
     return this.http.post<any>(this.url + 'userChannel/removeChannel', channel);
   }
+  addUserChannel(userChannel){
+    return this.http.post<any>(this.url + 'addUserChannel', userChannel);
+  }
 }

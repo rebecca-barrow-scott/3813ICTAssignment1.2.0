@@ -367,3 +367,23 @@ table{
 .add_member:hover{
     color: rgb(43, 104, 184);
 }
+.upload_btn{
+    background: none; 
+    border: none;
+    outline: none;
+    color: whitesmoke;
+    svg{
+        height: 1.2em;
+        width: 1.2em;
+    }   
+}
+.image_input{
+    input[type='file']{
+        display: none;
+    }
+    color: rgb(57, 143, 255);
+    cursor: pointer;
+}
+.image_input:hover{
+    color: rgb(43, 104, 184);
+}

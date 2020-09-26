@@ -38,19 +38,41 @@
 <div class='col-9 float-right'>
     <div class='content'>
         <div class='row' id='profile-detail'>
-            <div class='col-2 float-left'>
+            <div class='col-3 float-left'>
                 <!-- <img src="../assets/images/dots2.png" class='profile-img'> -->
                 <img src='\images\{{imagepath}}' class='profile-img'>
             </div>
-            <div class='col-8' id='profile-desc'>
+            <div class='col-7' id='profile-desc'>
                 <p class='name'><strong>{{username}}</strong></p>
                 <p>{{role}}</p>
-                <form>
-                    <div class="form-group">
-                        <input type='file' class='form-control' (change)="onFileSelected($event)" name='uploadFile' id='uploadFile'>
-                        <button class='btn btn-primary' type='button' (click)='onUpload()'>Submit</button>
-                    </div>
-                </form>
+                <div class='row'>
+                    <form>
+                        <div class="form-group">
+                            <div class='col-10  float-left'>
+                                <label class="image_input">
+                                    Upload Profile Picture
+                                    <div *ngIf="selectedFile != null; else displayBreak" style="color:rgb(167, 167, 167)">
+                                        {{selectedFile.name}}
+                                    </div>
+                                    <ng-template #displayBreak>
+                                        <br>
+                                        <br>
+                                    </ng-template>
+                                    <input type='file' class='form-control' (change)="onFileSelected($event)" name='uploadFile' id='uploadFile'>
+                                </label>
+                            </div>
+                            <div class='col-2' style='display: inline-block'>
+                                <button class='upload_btn' type='button' (click)='onUpload()'>
+                                    <svg viewBox="0 0 16 16" class="bi bi-upload" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                        <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                                      </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+              
             </div>
             <div class='col-2 float right'>
                 <button (click)='logout()' class='logout-button' routerLink='/'>

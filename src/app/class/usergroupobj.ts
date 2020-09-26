@@ -1,5 +1,5 @@
 export class UserGroupObj{
     username:string
-    group_id:string
-    channels:[any]
+    group_id:number
+    channels:any[]
 }

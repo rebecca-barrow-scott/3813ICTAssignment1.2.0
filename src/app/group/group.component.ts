@@ -35,6 +35,8 @@ export class GroupComponent implements OnInit {
   users:any;
   groupAssists:any;
   channelobj = new ChannelObj();
+  channelUser = new ChannelUser();
+  userGroupObj = new UserGroupObj();
 
 
   // userGroupObj = new UserGroupObj()
@@ -73,10 +75,6 @@ export class GroupComponent implements OnInit {
       this.userService.getAllUsers().subscribe((data)=>{
         this.users = data.users
       })
-      
-      // this.getGroups()
-      // this.getGroupChannels()
-      // this.getUsers()
     }
   }
 
@@ -125,6 +123,51 @@ export class GroupComponent implements OnInit {
         }
       })
     }
+  }
+  removeUserChannel(channel_id, user_id){
+    this.channelUser.channel_id = channel_id
+    this.channelUser.user_id = user_id
+    if(confirm("Remove user from the channel")){
+      this.userChannelService.removeUserChannel(this.channelUser).subscribe((data)=>{
+        if(data.feedback == null){
+          this.userChannelService.setLocalUserChannels(data.userChannels)
+          window.location.reload();
+        } else {
+          alert("Error")
+        }
+        
+      })
+    }
+  }
+  changeRoleGroup(user_id){
+    var tempChannelArray = []
+    this.userGroupObj.username = user_id
+    this.userGroupObj.group_id = this.currentGroup.id
+    for(let c of this.channels){
+      if(c.group_id == this.currentGroup.id){
+        tempChannelArray.push(c)
+      }
+    }
+    this.userGroupObj.channels = tempChannelArray
+    if(confirm("Make " + user_id + " a Group Assistant Admin?")){
+      this.userChannelService.changeRole(this.userGroupObj).subscribe((data)=>{
+        if(data.feedback == null){
+          this.userChannelService.setLocalUserChannels(data.userChannels)
+          this.groupService.setLocalGroupAssists(data.groupAssists)
+          window.location.reload();
+        }
+      })
+    }
+  }
+
+  createChannel(){
+    var channel_name = prompt("Enter a channel name");
+    this.channelobj.name = channel_name;
+    this.channelobj.group_id = this.currentGroup.id
+    this.channelService.createChannel(this.channelobj).subscribe((data)=>{
+      this.channelService.setLocalChannels(data.channels)
+      window.location.reload();
+    })
   }
 
   // getGroups(){

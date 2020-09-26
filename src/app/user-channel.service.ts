@@ -25,4 +25,10 @@ export class UserChannelService {
   addUserChannel(userChannel){
     return this.http.post<any>(this.url + 'addUserChannel', userChannel);
   }
+  removeUserChannel(userChannel){
+    return this.http.post<any>(this.url + "removeUserChannel", userChannel);
+  }
+  changeRole(userGroup){
+    return this.http.post<any>(this.url + 'changeUserChannelRole', userGroup);
+  }
 }

@@ -51,6 +51,8 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/getUserChannels')(db, app);
     require('./router/removeChannel')(db,app);
     require('./router/addUserChannel')(db,app);
+    require('./router/changeUserChannelRole')(db, app);
+    require('./router/removeUserChannel')(db, app);
     
 
     let server = http.listen(3000, function () {
@@ -60,5 +62,3 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     console.log('Access it here: http://localhost:3000/');
     });
 });
-// app.post('/removeChannelUser', require('./router/removeChannelUser'));
-// app.post('/changeRoleGroup', require('./router/changeRoleGroup'));

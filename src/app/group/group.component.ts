@@ -37,6 +37,7 @@ export class GroupComponent implements OnInit {
   channelobj = new ChannelObj();
   channelUser = new ChannelUser();
   userGroupObj = new UserGroupObj();
+  currentGroupAssist = false;
 
 
   // userGroupObj = new UserGroupObj()
@@ -75,6 +76,7 @@ export class GroupComponent implements OnInit {
       this.userService.getAllUsers().subscribe((data)=>{
         this.users = data.users
       })
+      this.checkCurrentGroupAssist()
     }
   }
 
@@ -161,18 +163,29 @@ export class GroupComponent implements OnInit {
   }
 
   createChannel(){
-    var channel_name = prompt("Enter a channel name");
-    if(channel_name != ""){
-      this.channelobj.name = channel_name;
-      this.channelobj.group_id = this.currentGroup.id
-      this.channelService.createChannel(this.channelobj).subscribe((data)=>{
-        this.channelService.setLocalChannels(data.channels)
-        window.location.reload();
-      })
+    if(this.currentGroupAssist || this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
+      var channel_name = prompt("Enter a channel name");
+      if(channel_name != ""){
+        this.channelobj.name = channel_name;
+        this.channelobj.group_id = this.currentGroup.id
+        this.channelService.createChannel(this.channelobj).subscribe((data)=>{
+          this.channelService.setLocalChannels(data.channels)
+          window.location.reload();
+        })
+      } else {
+        alert("Enter a channel name")
+      }
     } else {
-      alert("Enter a channel name")
+      alert('You have incorrect permission')
     }
-   
+    
+  }
+  checkCurrentGroupAssist(){
+    for(let groupAssist of this.groupAssists){
+      if(groupAssist.group_id == this.groupobj.id && groupAssist.user_id == this.user.username){
+        this.currentGroupAssist = true
+      }
+    }
   }
     
 }

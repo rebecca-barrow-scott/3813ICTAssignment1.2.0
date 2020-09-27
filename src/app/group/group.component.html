@@ -72,7 +72,7 @@
            
         </ul>
 
-        <div *ngIf="currentGroupAssist || (user.role == 'Group Admin' || user.role == 'Super Admin')">
+        <div>
             <ul *ngFor="let channel of groupChannelDict[currentGroup.id]" >
                 <!-- CHANNEL NAME -->
                     <li id='list_title'>
@@ -87,12 +87,12 @@
                     </li>
     
                 <!-- CHANNEL USERS -->
-                <div *ngIf='user.role == "Super Admin" || user.role == "Group Admin"'>
-                    <div *ngFor="let userChannel of userChannels">
+                <div>
+                    <div *ngFor="let userChannel of allUserChannels">
                         <li *ngIf="userChannel.channel_id == channel.id " class='table_user'>
                             {{userChannel.user_id}}
                             
-                            <button (click)='removeUserChannel(userChannel.channel_id, userChannel.user_id)' class='change_role'>
+                            <button (click)='removeUserChannel(userChannel.channel_id, userChannel.user_id)' class='change_role' *ngIf="currentGroupAssist || user.role == 'Group Admin' || user.role == 'Super Admin'">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                   </svg>

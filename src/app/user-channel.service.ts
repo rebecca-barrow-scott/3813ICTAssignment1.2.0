@@ -10,14 +10,23 @@ export class UserChannelService {
   setLocalUserChannels(userChannels){
     localStorage.setItem("userChannels", JSON.stringify(userChannels));
   }
+  setLocalAllUserChannels(userChannels){
+    localStorage.setItem("allUserChannels", JSON.stringify(userChannels));
+  }
   getLocalUserChannels(){
     return localStorage.getItem("userChannels");
+  }
+  getLocalAllUserChannels(){
+    return localStorage.getItem("allUserChannels");
   }
   setUserChannelCollection(){
     return this.http.get<any>(this.url + 'userChannel/setUserChannelCollection');
   }
   getUserChannels(user){
     return this.http.post<any>(this.url + 'userChannel/getUserChannels', user);
+  }
+  getAllUserChannels(){
+    return this.http.get<any>(this.url + 'userChannel/getAllUserChannels');
   }
   removeChannel(channel){
     return this.http.post<any>(this.url + 'userChannel/removeChannel', channel);

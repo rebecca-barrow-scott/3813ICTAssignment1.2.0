@@ -52,6 +52,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     // USERCHANNEL
     require('./router/setUserChannelCollection')(db, app);
     require('./router/getUserChannels')(db, app);
+    require('./router/getAllUserChannels')(db, app);
     require('./router/removeChannel')(db,app);
     require('./router/addUserChannel')(db,app);
     require('./router/changeUserChannelRole')(db, app);

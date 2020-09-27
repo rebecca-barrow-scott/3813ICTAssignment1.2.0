@@ -29,6 +29,7 @@ export class GroupComponent implements OnInit {
   groups:any;
   channels:any;
   userChannels:any;
+  allUserChannels:any;
   groupChannelDict:{};
   currentGroup = new GroupObj();
   groupobj = new GroupObj();
@@ -38,6 +39,7 @@ export class GroupComponent implements OnInit {
   channelUser = new ChannelUser();
   userGroupObj = new UserGroupObj();
   currentGroupAssist = false;
+  
 
 
   // userGroupObj = new UserGroupObj()
@@ -71,6 +73,7 @@ export class GroupComponent implements OnInit {
       this.groups = JSON.parse(this.groupService.getLocalGroups());
       this.channels = JSON.parse(this.channelService.getLocalChannels());
       this.userChannels = JSON.parse(this.userChannelService.getLocalUserChannels());
+      this.allUserChannels = JSON.parse(this.userChannelService.getLocalAllUserChannels());
       this.groupAssists = JSON.parse(this.groupService.getLocalGroupAssists());
       this.groupChannelDict = this.sortGroupChannels();
       this.userService.getAllUsers().subscribe((data)=>{

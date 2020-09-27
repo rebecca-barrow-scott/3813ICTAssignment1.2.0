@@ -57,6 +57,11 @@ export class LoginComponent implements OnInit {
             this.userChannelService.setLocalUserChannels(data.userChannels);
           }
         });
+        this.userChannelService.getAllUserChannels().subscribe((data)=>{
+          if (data.feedback == null){
+            this.userChannelService.setLocalAllUserChannels(data.userChannels);
+          }
+        });
         this.channelService.getChannels().subscribe((data)=>{
           if (data.feedback == null){
             this.channelService.setLocalChannels(data.channels);

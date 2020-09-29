@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from '../user.service';
+import { SocketService } from '../socket.service';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -20,7 +21,11 @@ export class ChannelComponent implements OnInit {
   message:string;
   new_message:string;
   user:any
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute) { }
+
+  messagecontent:string
+  messages:string[] = []
+  ioConnection:any
+  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private socketService:SocketService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
@@ -28,10 +33,26 @@ export class ChannelComponent implements OnInit {
       this.router.navigateByUrl('/');
     } else {
       this.name = this.route.snapshot.params.id;
+      this.initIonConnection();
     }
   }
   sendMessage(){
     this.new_message = this.message;
+  }
+  initIonConnection(){
+    this.socketService.initSocket();
+    this.ioConnection = this.socketService.onMessage()
+      .subscribe((message:string) => {
+        this.messages.push(message);
+      });
+  }
+  chat(messagecontent){
+    if(this.messagecontent){
+      this.socketService.send(this.messagecontent);
+      this.messagecontent=null;
+    } else {
+      console.log("no message");
+    }
   }
 
 }

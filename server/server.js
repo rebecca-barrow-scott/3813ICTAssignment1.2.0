@@ -6,6 +6,8 @@ var app = express();
 var http = require('http').Server(app);
 const MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
+var sockets = require('./socket.js');
+const io = require('socket.io')(http);
 
 const url = 'mongodb://localhost:27017';
 app.use(express.static(path.join(__dirname, '../dist/chattyapp/')));
@@ -54,7 +56,8 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/changeUserChannelRole')(db, app);
     require('./router/removeUserChannel')(db, app);
     
-
+    const PORT = 3000;
+    sockets.connect(io, PORT);
     let server = http.listen(3000, function () {
     let host = server.address().address;
     let port = server.address().port;

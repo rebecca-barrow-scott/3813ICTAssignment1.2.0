@@ -12,6 +12,8 @@ import { GroupObj } from '../class/groupobj';
 import { GroupService } from '../group.service';
 import { ChannelService } from '../channel.service';
 import { ChannelObj } from '../class/channelobj';
+import { ChannelUser } from '../class/channeluser';
+import { NgSelectOption } from '@angular/forms';
 const BACKEND_URL = 'http://localhost:3000';
 
 
@@ -29,28 +31,34 @@ export class ChannelComponent implements OnInit {
   currentGroup = new GroupObj();
   channels:any
   currentChannel = new ChannelObj();
+  userChannel = new ChannelUser();
 
   messagecontent:string
   messages:string[] = []
   ioConnection:any
   currentRoom:any
   roomnotice:string
+  activeUsers:number = 0
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private socketService:SocketService, private groupService:GroupService, private channelService:ChannelService) { }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.user = JSON.parse(this.userService.getUser());
+    this.userChannel.user_id = this.user.username
     if(this.user == undefined){
       this.router.navigateByUrl('/');
     } else {
       this.channel_id = this.route.snapshot.params.id;
+      this.userChannel.channel_id = this.channel_id
       this.groups = JSON.parse(this.groupService.getLocalGroups());
       this.channels = JSON.parse(this.channelService.getLocalChannels());
       this.currentChannel = this.findChannel();
       this.currentGroup = this.findGroup();
       //socket
-      this.socketService.notice((msg)=>{this.roomnotice = msg})
+      this.socketService.initSocket();
+      this.joinChannel();
+      this.socketService.notice((msg)=>{ this.messages.push(msg) })
       this.socketService.joined((msg)=>{this.currentRoom = msg})
-      this.socketService.getMessage((msg)=>{this.messages.push(msg)})
+      this.socketService.getMessage((msg)=>{ this.messages.push(msg) })
     }
   }
   findChannel(){
@@ -67,7 +75,11 @@ export class ChannelComponent implements OnInit {
       }
     }
   }
-  
+
+  initIonConnection(){
+    this.socketService.initSocket();
+  }
+
   chat(messagecontent){
     if(this.messagecontent){
       this.socketService.send(this.messagecontent);
@@ -75,6 +87,19 @@ export class ChannelComponent implements OnInit {
     } else {
       console.log("no message");
     }
+  }
+  leaveChannel(){
+    this.socketService.leaveChannel(this.userChannel)
+    this.socketService.reqActiveUsers(this.userChannel)
+    this.socketService.getActiveUsers((res)=>{this.activeUsers = res})
+    this.messages = []
+    this.activeUsers = 0
+    this.router.navigateByUrl('/group/'+this.currentGroup.id)
+  }
+  joinChannel(){
+    this.socketService.joinRoom(this.userChannel)
+    this.socketService.reqActiveUsers(this.userChannel)
+    this.socketService.getActiveUsers((res)=>{this.activeUsers = res})
   }
 
 }

@@ -9,20 +9,11 @@ const SERVER_URL = 'http://localhost:3000/group';
 export class SocketService {
   private socket;
   constructor() { }
-  public initSocket(id): void {
+  public initSocket(): void {
     this.socket = io(SERVER_URL);
   }
-  public send(message:string): void{
-    this.socket.emit('message', message);
-  }
-  public onMessage(): Observable<any>{
-    let observable = new Observable(observer => {
-      this.socket.on('message', (data:string) => observer.next(data));
-    });
-    return observable;
-  }
-  public joinRoom(channel):void{
-    this.socket.emit("joinChannel", channel);
+  joinRoom(userChannel):void{
+    this.socket.emit("joinChannel", userChannel);
   }
   joined(next){
     this.socket.on('joined', res=>next(res));
@@ -30,7 +21,19 @@ export class SocketService {
   notice(next){
     this.socket.on('notice', res=>next(res));
   }
+  send(message:string): void{
+    this.socket.emit('message', message);
+  }
   getMessage(next){
-    this.socket.on('message', res=>next(res));
+    this.socket.on('message', message=>next(message));
+  }
+  reqActiveUsers(userChannel){
+    this.socket.emit('activeUsers', userChannel);
+  }
+  getActiveUsers(next){
+    this.socket.on('activeUsers', res=>next(res));
+  }
+  leaveChannel(userChannel){
+    this.socket.emit('leaveChannel', userChannel);
   }
 }

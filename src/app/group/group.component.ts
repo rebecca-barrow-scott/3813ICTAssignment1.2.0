@@ -78,9 +78,6 @@ export class GroupComponent implements OnInit {
       this.userService.getAllUsers().subscribe((data)=>{
         this.users = data.users
       })
-
-      //socket
-      this.initIonConnection();
     }
   }
 
@@ -178,18 +175,6 @@ export class GroupComponent implements OnInit {
     } else {
       alert("Enter a channel name")
     }
-  }
-  //socket
-  initIonConnection(){
-    this.socketService.initSocket(this.currentGroup.id);
-    this.ioConnection = this.socketService.onMessage()
-      .subscribe((message:string) => {
-        this.messages.push(message);
-      });
-  }
-
-  joinroom(selectedChannel){
-    this.socketService.joinRoom(selectedChannel);
   }
     
 }

@@ -1,5 +1,9 @@
 <div class='col-3 float-left' id='groupPanel'>
-    <h5 id='profile_link'><a routerLink='/user'>Profile</a></h5>
+    <h5>{{currentGroup.name}}</h5>
+    <h5>{{currentChannel.name}}</h5>
+    <button id='leave_group' (click)="leaveChannel()">Leave Group</button>
+    <h5>Active Users</h5>
+    <h6>{{activeUsers}}</h6>
     <img src="../assets/images/kook2.png" class='kook-img'>
 </div>
   

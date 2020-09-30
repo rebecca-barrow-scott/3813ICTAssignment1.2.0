@@ -56,8 +56,10 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/changeUserChannelRole')(db, app);
     require('./router/removeUserChannel')(db, app);
     
+    // SOCKET
     const PORT = 3000;
-    sockets.connect(io, PORT);
+    sockets.connect(io, PORT, db, app);
+
     let server = http.listen(3000, function () {
     let host = server.address().address;
     let port = server.address().port;

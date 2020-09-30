@@ -17,7 +17,7 @@
         <div *ngIf='user.role == "Super Admin" || user.role == "Group Admin"; else elseBlock'>
             <div *ngFor='let channel of channels' class="channel_name">
                 <div *ngIf='group.id == channel.group_id'>
-                    <h6><a routerLink='/channel/{{channel.id}}'>{{channel.name}}</a></h6>
+                    <h6><a routerLink='/channel/{{channel.id}}' (click)="joinroom(channel)">Yes {{channel.name}}</a></h6>
                 </div>
             </div>
         </div>

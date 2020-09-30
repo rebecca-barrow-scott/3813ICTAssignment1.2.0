@@ -14,6 +14,7 @@ import { UserObj } from '../class/userobj';
 import { ChannelUser } from '../class/channeluser';
 import { ChannelObj } from 'E:\\2020\\Trimester 2\\3813ICT Software Frameworks\\Assignment1.2\\chattyapp\\src\\app\\class\\channelobj';
 import { GroupObj } from '../class/groupobj';
+import { SocketService } from '../socket.service';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -37,6 +38,8 @@ export class GroupComponent implements OnInit {
   channelobj = new ChannelObj();
   channelUser = new ChannelUser();
   userGroupObj = new UserGroupObj();
+  ioConnection:any
+  messages=[]
 
 
   // userGroupObj = new UserGroupObj()
@@ -56,7 +59,7 @@ export class GroupComponent implements OnInit {
   // channel_array2:any
   // channels2:any
   // 
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
+  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService, private socketService:SocketService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
@@ -75,6 +78,9 @@ export class GroupComponent implements OnInit {
       this.userService.getAllUsers().subscribe((data)=>{
         this.users = data.users
       })
+
+      //socket
+      this.initIonConnection();
     }
   }
 
@@ -172,7 +178,18 @@ export class GroupComponent implements OnInit {
     } else {
       alert("Enter a channel name")
     }
-   
+  }
+  //socket
+  initIonConnection(){
+    this.socketService.initSocket(this.currentGroup.id);
+    this.ioConnection = this.socketService.onMessage()
+      .subscribe((message:string) => {
+        this.messages.push(message);
+      });
+  }
+
+  joinroom(selectedChannel){
+    this.socketService.joinRoom(selectedChannel);
   }
     
 }

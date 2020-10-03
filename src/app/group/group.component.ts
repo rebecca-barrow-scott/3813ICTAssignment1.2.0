@@ -14,6 +14,7 @@ import { UserObj } from '../class/userobj';
 import { ChannelUser } from '../class/channeluser';
 import { ChannelObj } from '../class/channelobj';
 import { GroupObj } from '../class/groupobj';
+import { SocketService } from '../socket.service';
 
 const BACKEND_URL = 'http://localhost:3000';
 
@@ -40,6 +41,8 @@ export class GroupComponent implements OnInit {
   userGroupObj = new UserGroupObj();
   currentGroupAssist = false;
   
+  ioConnection:any
+  messages=[]
 
 
   // userGroupObj = new UserGroupObj()
@@ -59,7 +62,7 @@ export class GroupComponent implements OnInit {
   // channel_array2:any
   // channels2:any
   // 
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
+  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService, private socketService:SocketService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
@@ -80,6 +83,7 @@ export class GroupComponent implements OnInit {
         this.users = data.users
       })
       this.checkCurrentGroupAssist()
+      this.socketService.initSocket();
     }
   }
 
@@ -107,6 +111,7 @@ export class GroupComponent implements OnInit {
           this.channelService.deleteChannel(this.channelobj).subscribe((data)=>{
             if(data.feedback == null){
               this.channelService.setLocalChannels(data.channels);
+              this.socketService.removeChannel(this.channelobj.id);
               window.location.reload();
             }
           })
@@ -135,7 +140,7 @@ export class GroupComponent implements OnInit {
     if(confirm("Remove user from the channel")){
       this.userChannelService.removeUserChannel(this.channelUser).subscribe((data)=>{
         if(data.feedback == null){
-          this.userChannelService.setLocalUserChannels(data.userChannels)
+          this.userChannelService.setLocalUserChannels(data.userChannels);
           window.location.reload();
         } else {
           alert("Error")
@@ -173,15 +178,18 @@ export class GroupComponent implements OnInit {
         this.channelobj.group_id = this.currentGroup.id
         this.channelService.createChannel(this.channelobj).subscribe((data)=>{
           this.channelService.setLocalChannels(data.channels)
+          for(let c of data.channels){
+            if(c.name == channel_name){
+              alert(c.id)
+              this.socketService.addChannel(c.id)
+            }
+          }
           window.location.reload();
         })
       } else {
         alert("Enter a channel name")
       }
-    } else {
-      alert('You have incorrect permission')
     }
-    
   }
   checkCurrentGroupAssist(){
     for(let groupAssist of this.groupAssists){

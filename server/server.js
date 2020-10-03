@@ -7,6 +7,8 @@ var http = require('http').Server(app);
 const MongoClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 const formidable = require('formidable')
+var sockets = require('./socket.js');
+const io = require('socket.io')(http);
 
 const url = 'mongodb://localhost:27017';
 app.use(bodyParser.json());
@@ -58,6 +60,9 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/changeUserChannelRole')(db, app);
     require('./router/removeUserChannel')(db, app);
     
+    // SOCKET
+    const PORT = 3000;
+    sockets.connect(io, PORT, db, app);
 
     let server = http.listen(3000, function () {
     let host = server.address().address;

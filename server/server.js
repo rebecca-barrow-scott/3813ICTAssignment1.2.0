@@ -31,6 +31,7 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/createUser')(db, app);
     require('./router/changeUserRole')(db, app);
     require('./router/imageUpload')(db, app, formidable);
+    require('./router/updateImg')(db, app);
     
     // GROUP
     require('./router/setGroupCollection')(db, app);

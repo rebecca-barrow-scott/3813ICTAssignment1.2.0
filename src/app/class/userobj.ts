@@ -4,4 +4,5 @@ export class UserObj{
     role:string
     password:string
     confirm_password:string
+    fileName:string
 }

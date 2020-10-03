@@ -49,4 +49,7 @@ export class UserService {
   uploadImage(fd){
     return this.http.post<any>(this.url + 'imageUpload', fd);
   }
+  updateImg(user){
+    return this.http.post<any>(this.url + 'updateImg', user);
+  }
 }

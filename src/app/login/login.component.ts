@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
     this.userService.authUser(this.userobj).subscribe((data)=>{
       if (data.feedback == null){
-        this.userService.setUser({"username": data.user.username, "email": data.user.email, "role": data.user.role});
+        this.userService.setUser({"username": data.user.username, "email": data.user.email, "role": data.user.role, "img": data.user.img});
         this.groupService.getGroups().subscribe((data)=>{
           if (data.feedback == null){
             this.groupService.setLocalGroups(data.groups);

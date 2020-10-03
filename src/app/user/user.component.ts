@@ -36,7 +36,7 @@ export class UserComponent implements OnInit {
   groups:any;
   userChannels:any;
   selectedFile = null;
-  imagepath='dots2.png'
+  imagepath:string;
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
 
   ngOnInit(): void {
@@ -46,6 +46,7 @@ export class UserComponent implements OnInit {
     } else {
       this.username = this.user.username
       this.role = this.user.role
+      this.imagepath = this.user.img
       this.groups = JSON.parse(this.groupService.getLocalGroups());
       this.channels = JSON.parse(this.channelService.getLocalChannels());
       this.userChannels = JSON.parse(this.userChannelService.getLocalUserChannels());
@@ -138,8 +139,11 @@ export class UserComponent implements OnInit {
       fd.append('image', this.selectedFile, this.selectedFile.name);
       this.userService.uploadImage(fd).subscribe((data)=>{
         this.imagepath = data.data.filename
-        console.log(this.imagepath)
         this.selectedFile = null
+        this.user.fileName = this.imagepath
+        this.userService.updateImg(this.user).subscribe((data)=>{
+          this.userService.setUser({"username": data.user.username, "email": data.user.email, "role": data.user.role, "img": data.user.img})
+        })
       }); 
     }
    

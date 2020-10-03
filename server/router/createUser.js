@@ -5,7 +5,7 @@ module.exports = function(db, app){
             'email': req.body.email,
             'role': req.body.role,
             'password': req.body.password,
-            'confirm_password': req.body.confirm_password
+            'img':  "dots2.png"
         }
         db.collection('users').insertOne(user, function(err, result){
             if (err) throw err;

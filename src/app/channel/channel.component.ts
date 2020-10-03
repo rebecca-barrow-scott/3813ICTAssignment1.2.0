@@ -88,7 +88,6 @@ export class ChannelComponent implements OnInit {
   }
 
   chat(){
-    if(this.messagecontent){
       if(this.selectedFile != null){
         const fd = new FormData();
         fd.append('image', this.selectedFile, this.selectedFile.name);
@@ -102,11 +101,6 @@ export class ChannelComponent implements OnInit {
         this.socketService.send({'msg': this.messagecontent, 'user': this.user, 'img': null});
         this.messagecontent=null;
       }
-     
-
-    } else {
-      console.log("no message");
-    }
   }
   leaveChannel(){
     this.socketService.leaveChannel(this.userChannel)

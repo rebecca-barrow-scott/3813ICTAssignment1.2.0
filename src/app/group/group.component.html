@@ -1,6 +1,6 @@
 <div class='col-3 float-left' id='groupPanel'>
     <h5 id='profile_link'><a routerLink='/user'>Profile</a></h5>
-    <h5 id='new_group_link'><a routerLink='/createGroup' *ngIf="user.role == 'Super Admin' || user.role == 'Group Admin'">New Group </a></h5>
+    <h5 id='new_group_link'  *ngIf="user.role == 'Super Admin' || user.role == 'Group Admin'"><a routerLink='/createGroup'>New Group </a></h5>
     <div *ngFor='let group of groups'>
         <div class='row'>
             <div class='col-9' id='group_name'>
@@ -72,11 +72,11 @@
            
         </ul>
 
-        <div>
+        <div *ngIf="currentGroupAssist || user.role == 'Group Admin' || user.role == 'Super Admin'">
             <ul *ngFor="let channel of groupChannelDict[currentGroup.id]" >
                 <!-- CHANNEL NAME -->
                     <li id='list_title'>
-                        <a routerLink="/channel/{{channel.id}}">{{channel.name}}</a>
+                        <span>{{channel.name}}</span>
                         <div class='float-right'>
                             <button (click)='removeChannel(channel.id, channel.name)' class='channel_trash' *ngIf="user.role == 'Group Admin' || user.role == 'Super Admin'">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -91,7 +91,6 @@
                     <div *ngFor="let userChannel of allUserChannels">
                         <li *ngIf="userChannel.channel_id == channel.id " class='table_user'>
                             {{userChannel.user_id}}
-                            
                             <button (click)='removeUserChannel(userChannel.channel_id, userChannel.user_id)' class='change_role' *ngIf="currentGroupAssist || user.role == 'Group Admin' || user.role == 'Super Admin'">
                                 <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-dash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>

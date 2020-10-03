@@ -10,7 +10,7 @@ module.exports = function(db, app){
             db.collection('channels').insertOne(channel, function(err, result){
                 if (err) throw err;
                 db.collection('channels').find({}).toArray().then(function(c){
-                    res.send({'feeback': null, "channels": c});
+                    res.send({'feeback': null, "channels": c, "id": channels.length+1});
                 })
             });
         });

@@ -173,11 +173,13 @@ export class GroupComponent implements OnInit {
   createChannel(){
     if(this.currentGroupAssist || this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
       var channel_name = prompt("Enter a channel name");
-      if(channel_name != ""){
+      if(channel_name != null){
         this.channelobj.name = channel_name;
         this.channelobj.group_id = this.currentGroup.id
         this.channelService.createChannel(this.channelobj).subscribe((data)=>{
           this.channelService.setLocalChannels(data.channels)
+          this.userChannels.push({"channel_id": data.id, "user_id": this.user.username})
+          this.userChannelService.setLocalUserChannels(this.userChannels);
           for(let c of data.channels){
             if(c.name == channel_name){
               this.socketService.addChannel(c.id)
@@ -188,6 +190,8 @@ export class GroupComponent implements OnInit {
       } else {
         alert("Enter a channel name")
       }
+    } else {
+      alert("Incorrect permission")
     }
   }
   checkCurrentGroupAssist(){

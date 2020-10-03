@@ -32,9 +32,13 @@ export class ChannelComponent implements OnInit {
   channels:any
   currentChannel = new ChannelObj();
   userChannel = new ChannelUser();
+  currentGroupAssist = false;
+  groupAssists:any;
+  selectedFile = null;
+  imagepath:string;
 
   messagecontent:string
-  messages:string[] = []
+  messages = []
   ioConnection:any
   currentRoom:any
   roomnotice:string
@@ -52,12 +56,16 @@ export class ChannelComponent implements OnInit {
       this.channels = JSON.parse(this.channelService.getLocalChannels());
       this.currentChannel = this.findChannel();
       this.currentGroup = this.findGroup();
+      this.groupAssists = JSON.parse(this.groupService.getLocalGroupAssists());
+      this.checkCurrentGroupAssist();
       //socket
       this.socketService.initSocket();
       this.joinChannel();
-      this.socketService.notice((msg)=>{ this.messages.push(msg) })
-      this.socketService.joined((msg)=>{this.currentRoom = msg})
-      this.socketService.getMessage((msg)=>{ this.messages.push(msg) })
+      this.socketService.notice((msg)=>{ this.messages.push({'msg': msg, 'user': null}) })
+      this.socketService.joined((msg)=>{ this.currentRoom = msg })
+      this.socketService.getMessage((msg)=>{ 
+        this.messages.push({'msg': msg.msg, 'user': msg.user.username, 'img':msg.user.img, 'attachment':msg.attachment});
+      })
     }
   }
   findChannel(){
@@ -79,10 +87,23 @@ export class ChannelComponent implements OnInit {
     this.socketService.initSocket();
   }
 
-  chat(messagecontent){
+  chat(){
     if(this.messagecontent){
-      this.socketService.send(this.messagecontent);
-      this.messagecontent=null;
+      if(this.selectedFile != null){
+        const fd = new FormData();
+        fd.append('image', this.selectedFile, this.selectedFile.name);
+        this.userService.uploadImage(fd).subscribe((data)=>{
+          this.imagepath = data.data.filename
+          this.selectedFile = null
+          this.socketService.send({'msg': this.messagecontent, 'user': this.user, 'img': this.imagepath});
+          this.messagecontent=null;
+        }); 
+      } else {
+        this.socketService.send({'msg': this.messagecontent, 'user': this.user, 'img': null});
+        this.messagecontent=null;
+      }
+     
+
     } else {
       console.log("no message");
     }
@@ -94,6 +115,16 @@ export class ChannelComponent implements OnInit {
   }
   joinChannel(){
     this.socketService.joinRoom(this.userChannel)
+  }
+  checkCurrentGroupAssist(){
+    for(let groupAssist of this.groupAssists){
+      if(groupAssist.group_id == this.currentGroup.id && groupAssist.user_id == this.user.username){
+        this.currentGroupAssist = true
+      }
+    }
+  }
+  onFileSelected(event){
+    this.selectedFile = event.target.files[0]
   }
 
 }

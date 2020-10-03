@@ -16,7 +16,8 @@ module.exports = {
             socket.on("message", (message) => {
                 for (i=0; i<socketRoom.length; i++){
                     if(socketRoom[i][0] == socket.id){
-                        namespace.to(socketRoom[i][1]).emit('message', message);
+                        msg = {'msg': message.msg, 'user': message.user, 'attachment': message.img}
+                        namespace.to(socketRoom[i][1]).emit('message', msg);
                     }
                 }
             })

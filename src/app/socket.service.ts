@@ -21,7 +21,7 @@ export class SocketService {
   notice(next){
     this.socket.on('notice', res=>next(res));
   }
-  send(message:string): void{
+  send(message){
     this.socket.emit('message', message);
   }
   getMessage(next){

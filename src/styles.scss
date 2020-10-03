@@ -157,7 +157,8 @@ h3.appName{
 #channel_mess{
     position:fixed;
     bottom: 0;
-    width: 85%;
+    width: 80%;
+    margin-left: none;
     #message{
         background-color: rgb(70, 70, 70);
         border: 1px solid rgb(46, 46, 46);
@@ -383,7 +384,73 @@ table{
     }
     color: rgb(57, 143, 255);
     cursor: pointer;
+    svg{
+        font-size: 2em;
+    }
 }
 .image_input:hover{
     color: rgb(43, 104, 184);
 }
+#leave_group{
+    background-color: rgb(192, 17, 17);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 10px 0px;
+}
+.messageUser{
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    width: 95%;
+}
+.messageContent{
+    margin-top:0;
+    padding-top:0;
+    width: 95%;
+    border-bottom: none;
+}
+.messageAttach{
+    border-bottom: none;
+    width: 95%;
+    text-align: center;
+    img{
+        height: 200px;
+        width: 250px;
+    }
+}
+.messageImg{
+    width: 25px;
+    height: 25px;
+}
+.messageArea{
+    height: 65vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #6d6d6d;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(68, 68, 68);
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(73, 73, 73);
+  }
+  .attachmentLabel{
+      color: grey;
+      margin-bottom: 0;
+      padding-bottom: 0;
+  }

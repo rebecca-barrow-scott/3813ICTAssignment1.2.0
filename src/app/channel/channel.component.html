@@ -1,26 +1,43 @@
-<div class='col-3 float-left' id='groupPanel'>
+<div class='col-3 float-left channel_pannel' id='groupPanel'>
+    <button id='leave_group' (click)="leaveChannel()">Leave Group</button>
     <h5>{{currentGroup.name}}</h5>
     <h5>{{currentChannel.name}}</h5>
-    <button id='leave_group' (click)="leaveChannel()">Leave Group</button>
     <img src="../assets/images/kook2.png" class='kook-img'>
 </div>
   
   
   <div class='col-9 float-right'>
     <div class='content'>
-        <div class='role_banner'><p style='color:white'>{{user.role}}</p></div>
-        <div>
+        <div class='role_banner'>
+            <p style='color:white' *ngIf="currentGroupAssist">Group Assistant Admin</p>
+            <p style='color:white' *ngIf="!currentGroupAssist">{{user.role}}</p>
+        </div>
+        <div class="messageArea">
+            <br>
             <ul>
-                <li>{{roomnotice}}</li>
                 <div *ngFor='let message of messages'>
-                  <li>{{message}}</li>
+                    <li class="messageUser" *ngIf='message.user != null'>
+                        <img src="/images/{{message.img}}" class="messageImg">
+                        {{message.user}}
+                    </li>
+                    <li class="messageContent">{{message.msg}}</li>
+                    <li *ngIf="message.attachment!=null" class="messageAttach"><img src="images/{{message.attachment}}"></li>
                 </div>
               </ul>
         </div>
         <form>
             <div class="form-group" id='channel_mess'>
+                <p class='attachmentLabel'>Attachment: <span style="color:white;" *ngIf="selectedFile!=null">{{selectedFile.name}}</span></p>
                 <input type="text" name='message' [(ngModel)]="messagecontent" class="form-control" id="message"  placeholder="Message">
-                <button type="submit" class="message_button" (click)="chat(messagecontent)">
+                
+                <label class="image_input">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-paperclip" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+                        </svg>
+                    <input type='file' class='form-control' (change)="onFileSelected($event)" name='uploadFile' id='uploadFile'>
+                </label>
+                
+                <button type="submit" class="message_button" (click)="chat()">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
                     </svg>

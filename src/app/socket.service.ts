@@ -36,4 +36,11 @@ export class SocketService {
   leaveChannel(userChannel){
     this.socket.emit('leaveChannel', userChannel);
   }
+  addChannel(channel_id){
+    this.socket.emit('addChannel', channel_id);
+  }
+  removeChannel(channel_id){
+    alert('yes')
+    this.socket.emit('removeChannel', channel_id);
+  }
 }

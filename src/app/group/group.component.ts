@@ -78,6 +78,7 @@ export class GroupComponent implements OnInit {
       this.userService.getAllUsers().subscribe((data)=>{
         this.users = data.users
       })
+      this.socketService.initSocket();
     }
   }
 
@@ -105,6 +106,7 @@ export class GroupComponent implements OnInit {
           this.channelService.deleteChannel(this.channelobj).subscribe((data)=>{
             if(data.feedback == null){
               this.channelService.setLocalChannels(data.channels);
+              this.socketService.removeChannel(this.channelobj.id);
               window.location.reload();
             }
           })
@@ -133,7 +135,7 @@ export class GroupComponent implements OnInit {
     if(confirm("Remove user from the channel")){
       this.userChannelService.removeUserChannel(this.channelUser).subscribe((data)=>{
         if(data.feedback == null){
-          this.userChannelService.setLocalUserChannels(data.userChannels)
+          this.userChannelService.setLocalUserChannels(data.userChannels);
           window.location.reload();
         } else {
           alert("Error")
@@ -170,6 +172,12 @@ export class GroupComponent implements OnInit {
       this.channelobj.group_id = this.currentGroup.id
       this.channelService.createChannel(this.channelobj).subscribe((data)=>{
         this.channelService.setLocalChannels(data.channels)
+        for(let c of data.channels){
+          if(c.name == channel_name){
+            alert(c.id)
+            this.socketService.addChannel(c.id)
+          }
+        }
         window.location.reload();
       })
     } else {

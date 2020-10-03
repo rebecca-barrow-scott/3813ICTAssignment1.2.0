@@ -38,7 +38,6 @@ export class ChannelComponent implements OnInit {
   ioConnection:any
   currentRoom:any
   roomnotice:string
-  activeUsers:number = 0
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private socketService:SocketService, private groupService:GroupService, private channelService:ChannelService) { }
 
   ngOnInit(){
@@ -90,16 +89,11 @@ export class ChannelComponent implements OnInit {
   }
   leaveChannel(){
     this.socketService.leaveChannel(this.userChannel)
-    this.socketService.reqActiveUsers(this.userChannel)
-    this.socketService.getActiveUsers((res)=>{this.activeUsers = res})
     this.messages = []
-    this.activeUsers = 0
     this.router.navigateByUrl('/group/'+this.currentGroup.id)
   }
   joinChannel(){
     this.socketService.joinRoom(this.userChannel)
-    this.socketService.reqActiveUsers(this.userChannel)
-    this.socketService.getActiveUsers((res)=>{this.activeUsers = res})
   }
 
 }

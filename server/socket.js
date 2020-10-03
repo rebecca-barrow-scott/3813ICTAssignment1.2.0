@@ -1,10 +1,11 @@
-const { group } = require("console")
-const { consoleTestResultHandler } = require("tslint/lib/test")
-
 module.exports = {
     connect: function(io, PORT, db, app){
-        // this should only work with the channels in group 1 
-        var channelID = ['1', '2', '3']
+        var channelID = []
+        db.collection('channels').find({}).toArray().then(function(channels){
+            for(channel of channels){
+                channelID.push(channel.id)
+            }
+        });
         var socketRoom = []
         var socketRoomNum = []
 
@@ -21,17 +22,18 @@ module.exports = {
             })
 
             socket.on('joinChannel', (userChannel) => {
-                console.log('hit join')
+                userChannel.channel_id = parseInt(userChannel.channel_id)
                 if(channelID.includes(userChannel.channel_id)){
                     socket.join(userChannel.channel_id, () => {
                         var inroom = false
                         for(i=0; i<socketRoom.length; i++){
                             if(socketRoom[i][0]==socket.id){
                                 socketRoom[i][1]=userChannel.channel_id
+                                console.log('in room')
                                 inroom = true
                             }
                         }
-                        if (!inroom){
+                        if (inroom==false){
                             socketRoom.push([socket.id, userChannel.channel_id]);
                             var hasroomnum = false
 
@@ -41,6 +43,7 @@ module.exports = {
                                     hasroomnum = true
                                 }
                             }
+
                             if (!hasroomnum){
                                 socketRoomNum.push([userChannel.channel_id, 1])
                             }
@@ -52,8 +55,6 @@ module.exports = {
             });
 
             socket.on('leaveChannel', (userChannel) => {
-                console.log('leave channel');
-
                 for(i=0; i<socketRoom.length; i++){
                     if(socketRoom[i][0]==socket.id){
                         socketRoom.splice(i, 1)
@@ -71,18 +72,16 @@ module.exports = {
                 }
             });
 
-            socket.on('activeUsers', (userChannel) => {
-                console.log('active users')
-                var total = 0
-                for(j=0; j<socketRoomNum.length; j++){
-                    if(socketRoomNum[j][0] == userChannel.channel_id){
-                        total = socketRoomNum[j][1]
-                    }
-                }
-                console.log(total)
-                namespace.to(userChannel.channel_id).emit("activeUsers", total)
+            socket.on('addChannel', (channel_id) => {
+                channelID.push(parseInt(channel_id))
             });
 
+            socket.on('removeChannel', (channel_id) => {
+                var index = channelID.indexOf(parseInt(channel_id))
+                if (index > -1){
+                    channelID.splice(index, 1)
+                }
+            });
         });
     }
-}
+} 

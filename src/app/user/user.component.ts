@@ -131,10 +131,17 @@ export class UserComponent implements OnInit {
     this.selectedFile = event.target.files[0]
   }
   onUpload(){
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.userService.uploadImage(fd).subscribe((data)=>{
-      this.imagepath = data.data.filename
-    });
+    if (this.selectedFile == null){
+      alert("Select an image to upload")
+    } else {
+      const fd = new FormData();
+      fd.append('image', this.selectedFile, this.selectedFile.name);
+      this.userService.uploadImage(fd).subscribe((data)=>{
+        this.imagepath = data.data.filename
+        console.log(this.imagepath)
+        this.selectedFile = null
+      }); 
+    }
+   
   }
 }

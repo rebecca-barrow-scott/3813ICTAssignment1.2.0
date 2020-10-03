@@ -40,7 +40,6 @@ export class SocketService {
     this.socket.emit('addChannel', channel_id);
   }
   removeChannel(channel_id){
-    alert('yes')
     this.socket.emit('removeChannel', channel_id);
   }
 }

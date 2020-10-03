@@ -180,7 +180,6 @@ export class GroupComponent implements OnInit {
           this.channelService.setLocalChannels(data.channels)
           for(let c of data.channels){
             if(c.name == channel_name){
-              alert(c.id)
               this.socketService.addChannel(c.id)
             }
           }

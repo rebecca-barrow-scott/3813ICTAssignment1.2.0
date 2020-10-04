@@ -37,6 +37,7 @@ export class CreateGroupComponent implements OnInit {
       this.router.navigateByUrl('user');
     }
   }
+  // create a new group using the information from the form
   createGroup(){
     this.groupobj.name = this.group
     this.groupService.validateGroup(this.groupobj).subscribe(data => {
@@ -54,7 +55,7 @@ export class CreateGroupComponent implements OnInit {
       }
     });
   }
-
+  // create an initial channel for the group
   createChannel(id){
     this.channelobj.name = this.channel
     this.channelobj.group_id = id
@@ -75,6 +76,7 @@ export class CreateGroupComponent implements OnInit {
     });
     
   }
+  // set the local storage to reflect the new group and channel
   setLocalStorage(){
     this.groupService.getGroups().subscribe((data)=>{
       if (data.feedback == null){

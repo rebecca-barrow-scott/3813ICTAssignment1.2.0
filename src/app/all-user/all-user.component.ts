@@ -24,7 +24,9 @@ export class AllUserComponent implements OnInit {
   userobj = new UserObj();
   feedback:string = " ";
   
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService) { }
+  constructor(private router:Router, 
+              private httpClient:HttpClient, 
+              private userService:UserService) { }
 
   ngOnInit(): void {
     this.current_user = JSON.parse(this.userService.getUser());
@@ -47,6 +49,7 @@ export class AllUserComponent implements OnInit {
       this.router.navigateByUrl('user');
     }
   }
+  // filter the users into arrays based on the role provided to the function
   filter_users(filter){
     var user_array = []
     for (let user of this.all_users){
@@ -56,6 +59,7 @@ export class AllUserComponent implements OnInit {
     }
     return user_array
   }
+  // delete all the users
   deleteAll(){
     let valid = confirm('Are you sure you want to delete all users?');
     if (valid){

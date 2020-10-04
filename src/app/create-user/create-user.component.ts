@@ -34,6 +34,8 @@ export class CreateUserComponent implements OnInit {
       this.router.navigateByUrl('user');
     }
   }
+  // validate the information from the form, if everything is okay, create a new user. If not 
+  // present an error to the user
   createUser(){
     this.userobj.username = this.username
     this.userobj.email = this.email

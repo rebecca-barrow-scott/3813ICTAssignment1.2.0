@@ -68,6 +68,7 @@ export class ChannelComponent implements OnInit {
       })
     }
   }
+  // find the channel details based on the id passed in the url
   findChannel(){
     for(let channel of this.channels){
       if(channel.id == this.channel_id){
@@ -75,6 +76,7 @@ export class ChannelComponent implements OnInit {
       }
     }
   }
+  // find the group the channel belongs to
   findGroup(){
     for(let group of this.groups){
       if(group.id == this.currentChannel.group_id){
@@ -82,11 +84,11 @@ export class ChannelComponent implements OnInit {
       }
     }
   }
-
+  // initiate a socket connection 
   initIonConnection(){
     this.socketService.initSocket();
   }
-
+  // send a message to the socket
   chat(){
       if(this.selectedFile != null){
         const fd = new FormData();
@@ -102,14 +104,17 @@ export class ChannelComponent implements OnInit {
         this.messagecontent=null;
       }
   }
+  // remove the current socket id from the socket array
   leaveChannel(){
     this.socketService.leaveChannel(this.userChannel)
     this.messages = []
     this.router.navigateByUrl('/group/'+this.currentGroup.id)
   }
+  // add user socket.id to the socket array
   joinChannel(){
     this.socketService.joinRoom(this.userChannel)
   }
+  // check if the current user is a group assistant 
   checkCurrentGroupAssist(){
     for(let groupAssist of this.groupAssists){
       if(groupAssist.group_id == this.currentGroup.id && groupAssist.user_id == this.user.username){
@@ -117,6 +122,7 @@ export class ChannelComponent implements OnInit {
       }
     }
   }
+  // update the selected file when an image is selected
   onFileSelected(event){
     this.selectedFile = event.target.files[0]
   }

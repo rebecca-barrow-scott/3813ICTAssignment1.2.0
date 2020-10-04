@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('user');
     }
   }
-
+  // validate the users passeord and email. If the validation check passes then the local storage
+  // is set
   public loginFunc(){
     this.userobj.email = this.email
     this.userobj.password = this.password

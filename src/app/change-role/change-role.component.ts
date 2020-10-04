@@ -33,8 +33,8 @@ export class ChangeRoleComponent implements OnInit {
     } else {
       this.router.navigateByUrl('user');
     }
-    
   }
+  // update the role of the user
   updateUser(){
     this.userobj.username = this.username
     this.userobj.role = this.role

@@ -43,25 +43,6 @@ export class GroupComponent implements OnInit {
   
   ioConnection:any
   messages=[]
-
-
-  // userGroupObj = new UserGroupObj()
-  // feedback:string;
-  // username:string;
-  // channel_array:any;
-  // channel:any
-  // userobj = new UserObj();
-  // all_users:any;
-  // all_channel_users:any;
-  // channel_users:any;
-  // channel_user = new ChannelUser();
-  // group_array:any
-  
-  // channels:any
-  // group_array2:any
-  // channel_array2:any
-  // channels2:any
-  // 
   constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService, private socketService:SocketService) { }
 
   ngOnInit(): void {
@@ -86,7 +67,8 @@ export class GroupComponent implements OnInit {
       this.socketService.initSocket();
     }
   }
-
+  // sort the channels into a disctonary where the key is a group_id and the value is an array of 
+  // channel objects
   sortGroupChannels(){
     var gcdict ={}
     for(let group of this.groups){
@@ -102,6 +84,8 @@ export class GroupComponent implements OnInit {
     }
     return gcdict
   }
+  // delete the user channels and the channel based on the channel selected. Also update the local
+  // storage to to reflect the changes
   removeChannel(id, name){
     if(confirm("Are you sure you would like to delete " + name + "?")){
       this.channelobj.id = id
@@ -119,6 +103,7 @@ export class GroupComponent implements OnInit {
       })
     }
   }
+  // delete the group from the database and update local storage to reflect this
   deleteGroup(){
     if(confirm("Are you sure you would like to delete " + this.currentGroup.name + "?")){
       this.groupService.removeGroup(this.groupobj).subscribe((data)=>{
@@ -134,6 +119,7 @@ export class GroupComponent implements OnInit {
       })
     }
   }
+  // remove a user from the specified channel
   removeUserChannel(channel_id, user_id){
     this.channelUser.channel_id = channel_id
     this.channelUser.user_id = user_id
@@ -149,6 +135,7 @@ export class GroupComponent implements OnInit {
       })
     }
   }
+  // make the selected user a group assistant 
   changeRoleGroup(user_id){
     var tempChannelArray = []
     this.userGroupObj.username = user_id
@@ -169,7 +156,7 @@ export class GroupComponent implements OnInit {
       })
     }
   }
-
+  //create a new channel within the group
   createChannel(){
     if(this.currentGroupAssist || this.user.role == 'Super Admin' || this.user.role == 'Group Admin'){
       var channel_name = prompt("Enter a channel name");
@@ -194,6 +181,7 @@ export class GroupComponent implements OnInit {
       alert("Incorrect permission")
     }
   }
+  // check if the current user is a group assistant
   checkCurrentGroupAssist(){
     for(let groupAssist of this.groupAssists){
       if(groupAssist.group_id == this.groupobj.id && groupAssist.user_id == this.user.username){

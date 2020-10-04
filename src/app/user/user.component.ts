@@ -52,26 +52,11 @@ export class UserComponent implements OnInit {
       this.userChannels = JSON.parse(this.userChannelService.getLocalUserChannels());
     }
   }
+  // remove all the local storage
   logout(){
     this.userService.logout();
   }
-
-  // createChannel(id){
-  //   if(this.user.role == "Super Admin" || this.user.role == "Group Admin"){
-  //     var name = prompt("Please enter a channel name");
-  //     this.channelobj.name = name
-  //     this.channelobj.group_id = id
-  //     this.httpClient.post(BACKEND_URL + '/createChannel', this.channelobj, httpOptions)
-  //     .subscribe((data: any) => {
-  //       if (data.feedback == null){
-  //         window.location.reload();
-  //       } else {
-  //         this.feedback = data.feedback
-  //       }
-  //     });
-  //   } else {
-  //     alert("Incorrect permission")
-  //   }
+  // set the channels to be an array of user channels
   sortChannels(){
     var channels = []
     var refined_channels = []
@@ -89,37 +74,42 @@ export class UserComponent implements OnInit {
     }
     return refined_channels
   }
-
+  // reset the user collection, then logout
   resetUserCollection(){
     this.userService.setUserCollection().subscribe(data => {
       this.logout();
       window.location.reload();
     });
   }
+  // reset the group collection, then logout
   resetGroupCollection(){
     this.groupService.setGroupCollection().subscribe(data => {
       this.logout();
       window.location.reload();
     });
   }
+  // reset the userChannel collection, then logout
   resetUserChannelCollection(){
     this.userChannelService.setUserChannelCollection().subscribe(data => {
       this.logout();
       window.location.reload();
     });
   }
+  // reset the channel collection, then logout
   resetChannelCollection(){
     this.channelService.setChannelCollection().subscribe(data => {
       this.logout();
       window.location.reload();
     });
   }
+  // reset the group assist collection, then logout
   resetGroupAssistCollection(){
     this.groupService.setGroupAssistCollection().subscribe(data => {
       this.logout();
       window.location.reload();
     });
   }
+  // reset the entire database, then logout
   resetDatabase(){
     this.resetChannelCollection()
     this.resetGroupCollection()
@@ -127,10 +117,11 @@ export class UserComponent implements OnInit {
     this.resetUserCollection()
     this.resetGroupAssistCollection()
   }
-
+  // change the value of selected file to the name of the selected file
   onFileSelected(event){
     this.selectedFile = event.target.files[0]
   }
+  // upload the image to the server
   onUpload(){
     if (this.selectedFile == null){
       alert("Select an image to upload")

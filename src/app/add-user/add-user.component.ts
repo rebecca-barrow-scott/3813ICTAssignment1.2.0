@@ -37,7 +37,13 @@ export class AddUserComponent implements OnInit {
   channelobj = new ChannelUser()
   groupAssists:any;
 
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
+  constructor(private router:Router, 
+              private httpClient:HttpClient, 
+              private userService:UserService, 
+              private route:ActivatedRoute, 
+              private groupService:GroupService, 
+              private channelService:ChannelService, 
+              private userChannelService:UserChannelService) { }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
@@ -50,7 +56,8 @@ export class AddUserComponent implements OnInit {
       this.sortChannels()
     }
   }
-
+  // sort the channels into a dictonary where the key is the group_id and the valuse is an 
+  // arrray of channel objects
   sortChannels(){
     for (let channel of this.channels){
       if (channel.group_id == this.groupobj.id){
@@ -58,6 +65,8 @@ export class AddUserComponent implements OnInit {
       }
     }
   }
+  // search to see if the user exists, if they do add them to the channel. If they dont exist then
+  // create a new user with some dummy data
   searchUser(){
     this.userobj.username = this.username
     this.userobj.email = this.username + 'test@gmail.com'
@@ -95,6 +104,7 @@ export class AddUserComponent implements OnInit {
       })
     }
   }
+  // add a user to the specified channel
   addUserChannel(){
     for(let c of this.channels){
       if(c.name == this.channel){

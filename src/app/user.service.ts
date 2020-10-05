@@ -23,6 +23,7 @@ export class UserService {
     localStorage.removeItem("userChannels");
     localStorage.removeItem("groupAssists");
     localStorage.removeItem("allUserChannels");
+    localStorage.removeItem("messages");
   }
 
   authUser(user){

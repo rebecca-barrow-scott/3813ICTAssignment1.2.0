@@ -14,6 +14,7 @@ import { ChannelService } from '../channel.service';
 import { ChannelObj } from '../class/channelobj';
 import { ChannelUser } from '../class/channeluser';
 import { NgSelectOption } from '@angular/forms';
+import { MessagesService } from '../messages.service';
 const BACKEND_URL = 'http://localhost:3000';
 
 
@@ -42,7 +43,13 @@ export class ChannelComponent implements OnInit {
   ioConnection:any
   currentRoom:any
   roomnotice:string
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private route:ActivatedRoute, private socketService:SocketService, private groupService:GroupService, private channelService:ChannelService) { }
+  constructor(private router:Router, 
+              private userService:UserService, 
+              private route:ActivatedRoute, 
+              private socketService:SocketService, 
+              private groupService:GroupService,
+              private channelService:ChannelService,
+              private messageService:MessagesService) { }
 
   ngOnInit(){
     this.user = JSON.parse(this.userService.getUser());
@@ -52,19 +59,21 @@ export class ChannelComponent implements OnInit {
     } else {
       this.channel_id = this.route.snapshot.params.id;
       this.userChannel.channel_id = this.channel_id
+      this.messages = JSON.parse(this.messageService.getLocalMessages());
       this.groups = JSON.parse(this.groupService.getLocalGroups());
       this.channels = JSON.parse(this.channelService.getLocalChannels());
       this.currentChannel = this.findChannel();
       this.currentGroup = this.findGroup();
       this.groupAssists = JSON.parse(this.groupService.getLocalGroupAssists());
+      this.messages = this.refineMessages(JSON.parse(this.messageService.getLocalMessages()));
       this.checkCurrentGroupAssist();
       //socket
       this.socketService.initSocket();
       this.joinChannel();
-      this.socketService.notice((msg)=>{ this.messages.push({'msg': msg, 'user': null}) })
+      this.socketService.notice((msg)=>{ this.messages.unshift({'msg': msg, 'user': null}) })
       this.socketService.joined((msg)=>{ this.currentRoom = msg })
       this.socketService.getMessage((msg)=>{ 
-        this.messages.push({'msg': msg.msg, 'user': msg.user.username, 'img':msg.user.img, 'attachment':msg.attachment});
+        this.messages.unshift({'msg': msg.msg, 'user': msg.user.username, 'img':msg.user.img, 'attachment':msg.attachment});
       })
     }
   }
@@ -96,10 +105,14 @@ export class ChannelComponent implements OnInit {
         this.userService.uploadImage(fd).subscribe((data)=>{
           this.imagepath = data.data.filename
           this.selectedFile = null
-          this.socketService.send({'msg': this.messagecontent, 'user': this.user, 'img': this.imagepath});
-          this.messagecontent=null;
+          this.messageService.saveMessage({channel_id: this.channel_id, user: this.user.username, msg: this.messagecontent, img: this.user.img, attachment: this.imagepath}).subscribe((data) => {
+            this.messageService.setLocalMessages(data.messages);
+            this.socketService.send({'msg': this.messagecontent, 'user': this.user, 'img': this.imagepath});
+            this.messagecontent=null;
+          })
         }); 
       } else {
+        this.messageService.saveMessage({channel_id: Number(this.channel_id), user: this.user.username, msg: this.messagecontent, img: this.user.img, attachment: null}).subscribe((data) => { this.messageService.setLocalMessages(data.messages) })
         this.socketService.send({'msg': this.messagecontent, 'user': this.user, 'img': null});
         this.messagecontent=null;
       }
@@ -125,6 +138,16 @@ export class ChannelComponent implements OnInit {
   // update the selected file when an image is selected
   onFileSelected(event){
     this.selectedFile = event.target.files[0]
+  }
+  // get the messages for the current channel
+  refineMessages(message_array){
+    var temp_msg = []
+    for(let m of message_array){
+      if(m.channel_id == this.channel_id){
+        temp_msg.unshift(m)
+      }
+    }
+    return temp_msg
   }
 
 }

@@ -10,6 +10,7 @@ const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 import { UserObj } from '../class/userobj';
+import { MessagesService } from '../messages.service';
 const BACKEND_URL = 'http://localhost:3000';
 
 @Component({
@@ -26,7 +27,12 @@ export class LoginComponent implements OnInit {
   user:any
 
 
-  constructor(private router:Router, private httpClient:HttpClient, private userService:UserService, private groupService:GroupService, private channelService:ChannelService, private userChannelService:UserChannelService) { }
+  constructor(private router:Router, 
+              private userService:UserService, 
+              private groupService:GroupService, 
+              private channelService:ChannelService, 
+              private userChannelService:UserChannelService,
+              private messageService:MessagesService) { }
   
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());
@@ -66,6 +72,11 @@ export class LoginComponent implements OnInit {
         this.channelService.getChannels().subscribe((data)=>{
           if (data.feedback == null){
             this.channelService.setLocalChannels(data.channels);
+          }
+        });
+        this.messageService.getMessages().subscribe((data)=>{
+          if (data.feedback == null){
+            this.messageService.setLocalMessages(data.messages);
           }
         });
         this.router.navigateByUrl('user');

@@ -60,7 +60,12 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     require('./router/addUserChannel')(db,app);
     require('./router/changeUserChannelRole')(db, app);
     require('./router/removeUserChannel')(db, app);
-    
+
+    // MESSAGES
+    require('./router/setMessageCollection')(db, app);
+    require('./router/getMessages')(db, app);
+    require('./router/saveMessage')(db, app);
+
     // SOCKET
     const PORT = 3000;
     sockets.connect(io, PORT, db, app);

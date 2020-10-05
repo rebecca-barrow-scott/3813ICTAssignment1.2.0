@@ -10,4 +10,8 @@ describe('Server test', function() {
     });
 
     require('./test/testAuth');
+    require('./test/testUserChannel');
+    require('./test/testChannel');
+    require('./test/testGroup');
+    require('./test/testUser');
 });

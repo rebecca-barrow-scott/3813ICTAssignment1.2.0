@@ -72,3 +72,5 @@ MongoClient.connect(url, {poolSize: 10, useNewUrlParser: true, useUnifiedTopolog
     console.log('Access it here: http://localhost:3000/');
     });
 });
+
+module.exports = app; 

@@ -1,5 +1,5 @@
 # Chattyapp
-The web application was created for 3813ICT Software Frameworks, Assignment Phase 1
+The web application was created for 3813ICT Software Frameworks, Assignment Phase 2
 
 ## Steps to run the code
 `ng serve`  

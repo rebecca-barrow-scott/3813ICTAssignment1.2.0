@@ -21,4 +21,7 @@ describe('UserComponent', () => {
       component = fixture.componentInstance;
     })
   }));
+  // it('should have one user', async(()=> {
+  //   expect(component.testUser.length).toEqual(1)
+  // }))
 });

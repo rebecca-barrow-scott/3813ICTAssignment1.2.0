@@ -44,7 +44,7 @@ describe('UserService', () => {
   });
 
   describe('authenticate the user', () => {
-    it('should return a some feedback and the user', () => {
+    it('should return some feedback and the user', () => {
       const userResponse = {"feedback": null, "user": {"username":"Super","email":"super@gmail.com","password":"super","role":"Super Admin","img":"dots2.png"}}
       let response;
       spyOn(service, 'authUser').and.returnValue(of(userResponse));
@@ -56,7 +56,7 @@ describe('UserService', () => {
   });
 
   describe('set the user collection', () => {
-    it('should return a some feedback', () => {
+    it('should return some feedback', () => {
       const userResponse = {"feedback": null}
       let response;
       spyOn(service, 'setUserCollection').and.returnValue(of(userResponse));
@@ -67,8 +67,8 @@ describe('UserService', () => {
     });
   });
 
-  describe('delete all the user', () => {
-    it('should delete all the user', () => {
+  describe('delete all the users', () => {
+    it('should delete all the users', () => {
       const userResponse = {'feedback': null, 'deletedCount': 12}
       let response;
       spyOn(service, 'deleteAllUsers').and.returnValue(of(userResponse));
@@ -104,7 +104,7 @@ describe('UserService', () => {
   });
 
   describe('change user role', () => {
-    it('should create a new user', () => {
+    it('should change a user\'s role', () => {
       const userResponse =  {"feedback":null}
       let response;
       spyOn(service, 'changeUserRole').and.returnValue(of(userResponse));

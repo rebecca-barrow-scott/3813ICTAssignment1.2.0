@@ -7,6 +7,12 @@ describe('workspace-project App', () => {
   beforeEach(() => {
     page = new UserPage();
   });
+
+  // it('get the user\'s name', () => {
+  //   page.navigateTo();
+  //   expect(page.getUsername()).toEqual('Test');
+  // });
+
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

@@ -38,12 +38,14 @@ export class UserComponent implements OnInit {
   userChannels:any;
   selectedFile = null;
   imagepath:string;
+  testUser;
   constructor(private router:Router, 
               private userService:UserService, 
               private groupService:GroupService, 
               private channelService:ChannelService, 
               private userChannelService:UserChannelService,
-              private messageService:MessagesService) { }
+              private messageService:MessagesService) { 
+              }
 
   ngOnInit(): void {
     this.user = JSON.parse(this.userService.getUser());

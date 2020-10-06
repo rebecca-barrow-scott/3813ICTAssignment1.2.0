@@ -5,6 +5,6 @@ export class UserPage {
     return browser.get('/user');
   }
   getUsername(){
-    return element(by.css('h2')).getText();
+    return element(by.css('app-root h2')).getText();
   }
 }

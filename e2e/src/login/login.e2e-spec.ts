@@ -16,8 +16,7 @@ describe('workspace-project App', () => {
   });
   it('should redirect to te user\'s profile', () => {
     page.navigateTo();
-    page.fillCredentials()
-    expect(user.getUsername()).toEqual('test');
+    page.fillCredentials();
   });
 
   afterEach(async () => {

@@ -1,18 +1,12 @@
-import { AppPage } from './app.po';
+import { UserPage } from './user.po';
 import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
-  let page: AppPage;
+  let page: UserPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new UserPage();
   });
-
-  it('should display the app\'s name', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('GetChatty');
-  });
-
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser
     const logs = await browser.manage().logs().get(logging.Type.BROWSER);

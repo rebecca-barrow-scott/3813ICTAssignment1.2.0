@@ -18,7 +18,7 @@ module.exports = function(db, app){
                 }
                 db.collection('userChannels').find({user_id: req.body.username}).toArray().then(function(userChannels){
                     var newUserChannels = userChannels.concat(channel_array)
-                    res.send({"feedback": null, "userChannels": newUserChannels})
+                    res.send({"feedback": "this one", "userChannels": newUserChannels})
                 });
             })
             

@@ -3,7 +3,7 @@ module.exports = function(db, app){
         db.collection('groupAssists').deleteMany({group_id: parseInt(req.body.id)}, function(err, result){
             if (err) throw err;
             db.collection('groupAssists').find({}).toArray().then(function(groupAssists){
-                res.send({'feedback': null, 'groupAssists': groupAssists})
+                res.send({'feedback': null, 'groupAssists': groupAssists, 'deletedCount': result.deletedCount})
             })
         });
     });

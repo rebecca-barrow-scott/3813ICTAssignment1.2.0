@@ -13,11 +13,11 @@ Once built click [here](http://localhost:4200) to start using the app
 ## Testing the application
 Tests have been constructed to test three sections of the application. Commands to run these test are as follows:  
 <br>
-###To conduct end-to-end testing  
+### End-to-end testing  
 `ng e2e`  
-###To test the services and components  
+### Unit tests  
 `ng test`  
-##To test the routes  
+## Route tests
 `cd server`   
 `npm run-script test`   
 

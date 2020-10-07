@@ -1,5 +1,6 @@
 import { UserPage } from './all-users.po';
 import { browser, logging } from 'protractor';
+import { Injectable } from '@angular/core';
 
 describe('workspace-project App', () => {
   let page: UserPage;
